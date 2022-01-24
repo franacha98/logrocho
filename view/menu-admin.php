@@ -1,3 +1,6 @@
+<header id="header">
+    <img src="../resources/media/logo-logrocho.png"> 
+</header>
 <div class="vertical-nav bg-white" id="sidebar">
     <div class="py-4 px-3 mb-4 bg-light">
       <div class="media d-flex align-items-center"><a href="#"><img src="../resources/media/foto_perfil.png" alt="Foto de perfil" width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm"></a>

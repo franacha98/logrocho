@@ -52,7 +52,9 @@
     </div>
   </div>
   <!-- End demo content -->
-
+  <?php
+  include "footer.php";
+  ?>
 
 
 

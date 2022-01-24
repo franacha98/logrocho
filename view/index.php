@@ -12,7 +12,7 @@
     <div class="container-login100">
       <div class="wrap-login100">
         <form class="login100-form validate-form" method="POST" action="<?php echo $rutaLogin; ?>">
-          <span id="titulo" class="login100-form-title p-b-43"> <b>Logro</b><i>cho</i> </span>
+          <img id="img-logo" src="resources/media/logo-logrocho.png">
           <div class="wrap-input100 validate-input">
             <input class="input100" type="text" name="usuario" placeholder="Usuario" />
             <span class="focus-input100"></span>

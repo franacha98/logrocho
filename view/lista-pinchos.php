@@ -62,6 +62,11 @@
             <button id="btAnterior" class="btn btn-dark" onclick="anterior()">Anterior</button>
             <button id="btSiguiente" class="btn btn-dark" onclick="siguiente()">Siguiente</button>
         </div>
+
+        </div>
+        <?php
+  include "footer.php";
+  ?>
   <script src="../js/jquery-3.6.0.min.js"></script>
   <script>
     let pag;

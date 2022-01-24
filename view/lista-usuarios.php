@@ -35,10 +35,9 @@
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col">ID</th>
+          <th scope="col">Correo</th>
           <th scope="col">Nombre</th>
-          <th scope="col">Latidud</th>
-          <th scope="col">Longitud</th>
+          <th scope="col">Es administrador</th>
         </tr>
       </thead>
       <tbody id="myTable">
@@ -65,13 +64,13 @@
         pag = 0;
         $.ajax({
           type: "GET",
-          url: "http://localhost/logrocho/index.php/listado-bares/0/3",
+          url: "http://localhost/logrocho/index.php/listado-usuarios/0/3",
           dataType: "json",
           success: function(response) {
             //TABLA
             tabla.html("");
             for (let i = 0; i < 3; i++) {
-              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
+              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO')+ "</td></tr>");
 
             }
             //tabla.append(tbody);
@@ -85,7 +84,7 @@
         pag = pag + 3;
         $.ajax({
           type: "GET",
-          url: "http://localhost/logrocho/index.php/listado-bares/" + pag + "/3",
+          url: "http://localhost/logrocho/index.php/listado-usuarios/" + pag + "/3",
           //data: {"pais" : datalist.value},
           dataType: "json",
           success: function(response) {
@@ -94,12 +93,12 @@
             $("#btAnterior").prop("disabled", false);
             if (response.length < pag) {
               for (let i = 0; i < response.length; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
                 $("#btSiguiente").prop("disabled", true);
               }
             } else {
               for (let i = 0; i < 3; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
                 $("#btSiguiente").prop("disabled", false);
               }
             }
@@ -115,7 +114,7 @@
         }
         $.ajax({
           type: "GET",
-          url: "http://localhost/logrocho/index.php/listado-bares/" + pag + "/3",
+          url: "http://localhost/logrocho/index.php/listado-usuarios/" + pag + "/3",
           //data: {"pais" : datalist.value},
           dataType: "json",
           success: function(response) {
@@ -123,13 +122,14 @@
             tabla.html("");
             $("#btSiguiente").prop("disabled", false);
             if (response.length < pag) {
+            
               for (let i = 0; i < response.length; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
                 $("#btAnterior").prop("disabled", true);
               }
             } else {
               for (let i = 0; i < 3; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
                 $("#btAnterior").prop("disabled", false);
               }
             }

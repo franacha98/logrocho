@@ -4,12 +4,14 @@
         private $correo;
         private $contrasena;
         private $admin;
-
-        function __construct($correo, $contrasena, $admin = false)
+        private $nombre;
+        
+        function __construct($correo, $contrasena, $admin = false, $nombre)
         {
             $this->correo = $correo;
             $this->contrasena = $contrasena;
-            $this->admin = $admin;            
+            $this->admin = $admin;   
+            $this->nombre = $nombre;         
         }        
 
         /**
@@ -68,6 +70,26 @@
         public function setAdmin($admin)
         {
                 $this->admin = $admin;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of nombre
+         */ 
+        public function getNombre()
+        {
+                return $this->nombre;
+        }
+
+        /**
+         * Set the value of nombre
+         *
+         * @return  self
+         */ 
+        public function setNombre($nombre)
+        {
+                $this->nombre = $nombre;
 
                 return $this;
         }

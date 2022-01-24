@@ -33,6 +33,39 @@ class BBDD
         }
     }
 
+    public function listaUsuarios()
+    {
+        try {
+            $sql = "SELECT * FROM usuarios;";
+            $resultado = $this->conexion->query($sql);
+            $usuarios = array();
+            foreach ($resultado as $aux) {
+                $usuario = new Usuario($aux["usuario"], $aux["contrasena"], $aux["admin"], $aux["nombre"]);
+                array_push($usuarios, $usuario);
+            }
+            return $usuarios;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function listaUsuariosJson($limit, $num)
+    {
+        try {
+            $sql = "SELECT * FROM usuarios LIMIT $limit, $num;";
+            $resultado = $this->conexion->query($sql);        
+            $usuarios = array();
+            foreach ($resultado as $aux) {
+                $usuario = new Usuario($aux["usuario"], $aux["contrasena"], $aux["admin"], $aux["nombre"]);
+                array_push($usuarios, $aux);
+            }
+            return $usuarios;
+            //echo json_encode($bares);
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
     public function anadirPincho($nombre, $descripcion, $precio, $bar)
     {
         try {
@@ -66,6 +99,7 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
+
 
     public function listaPinchos()
     {
@@ -112,6 +146,67 @@ class BBDD
                 array_push($pinchos, $aux);
             }
             return $pinchos[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function recuperarUsuario($correo)
+    {
+        try {
+            $sql = "SELECT * FROM usuarios WHERE usuario=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $correo));
+            $usuarios = array();
+            foreach ($stmt as $usuario) {
+                $aux = new Usuario($usuario["usuario"], $usuario["contrasena"], $usuario["admin"], $usuario["nombre"]);
+                array_push($usuarios, $aux);
+            }
+            return $usuarios[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function anadirUsuario($usuario, $contrasena, $admin, $nombre)
+    {
+        try {
+
+            $this->conexion->beginTransaction();
+
+            $sql = "INSERT INTO usuarios (usuario, contrasena, admin, nombre) VALUES ('$usuario', '$contrasena', '$admin', '$nombre')";
+            echo $sql;
+            $resultado = $this->conexion->query($sql);
+
+            if (!$resultado) {
+                echo print_r($this->conexion->errorInfo());
+                $this->conexion->rollBack();
+                return false;
+            }
+
+
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function modificarUsuario($usuario, $contrasena, $admin, $nombre){
+        try {      
+            $sql = "UPDATE usuarios SET nombre='$nombre', usuario='$usuario', admin='$admin', contrasena='$contrasena' WHERE usuario='$usuario'";
+            echo $sql;
+            $resultado = $this->conexion->query($sql);
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function eliminarUsuario($usuario){
+        try {
+            $sql = "DELETE FROM usuarios WHERE usuario='$usuario'";
+            $result = $this->conexion->query($sql);
+            echo $sql;
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
         }
@@ -222,7 +317,5 @@ class BBDD
     }
 
 
-    public function listaUsuarios()
-    {
-    }
+
 }
