@@ -85,7 +85,7 @@
             //TABLA
             tabla.html("");
             for(let i = 0; i < 3; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");           
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");           
             }
             $("#btAnterior").prop("disabled", true);
         }
@@ -106,12 +106,12 @@ function siguiente(){
             $("#btAnterior").prop("disabled", false);
             if(response.length < pag){
               for(let i = 0; i < response.length; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
                 $("#btSiguiente").prop("disabled", true);
               }
             }else{
               for(let i = 0; i < 3; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
                 $("#btSiguiente").prop("disabled", false);
               }
             }          
@@ -136,12 +136,12 @@ function anterior(){
             $("#btSiguiente").prop("disabled", false);
             if(response.length < pag){
               for(let i = 0; i < response.length; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
                 $("#btAnterior").prop("disabled", true);
               }
             }else{
               for(let i = 0; i < 3; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
                 $("#btAnterior").prop("disabled", false);
               }
             }          
