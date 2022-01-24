@@ -13,24 +13,29 @@
 <body>
   <!-- Vertical navbar -->
   <?php
-    include "menu-admin.php";
+  include "menu-admin.php";
   ?>
   <!-- End vertical navbar -->
 
   <!-- Page content holder -->
   <div class="page-content p-5" id="content">
     <!-- Toggle button -->
-    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i
-        class="fa fa-bars mr-2"></i></button>
+    <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i></button>
 
-      <h1>Panel de administración - Listado de pinchos</h1>
-      
-  <!-- End demo content -->
+    <h1>Panel de administración - Listado de pinchos</h1>
+
+    <!-- End demo content -->
     <input class="form-control" id="buscador" type="text" placeholder="Buscar...">
     <br>
     <div id="filtros">
       <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir</button></a>
-      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button>
+      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
+      <label for="paginacion">Configurar páginación:</label>
+      <select name="paginacion" class="form-select" aria-label="Default select example">
+        <option selected value="3">Tres en tres</option>
+        <option value="5">Cinco en cinco</option>
+        <option value="20">Todo</option>
+      </select>
     </div><br>
     <table class="table table-hover table-bordered">
       <thead>
@@ -45,7 +50,7 @@
       </thead>
       <tbody id="myTable">
         <?php
-          /*foreach($lista as $bar){
+        /*foreach($lista as $bar){
             echo "<tr>";
             echo "<th scope='row'><input type='checkbox' class='checkbox-list'></th>";
             echo "<td>".$bar->getCod_bar()."</td>";
@@ -55,103 +60,102 @@
             echo "</tr>";
           }*/
         ?>
-        
+
       </tbody>
     </table>
     <div id="paginacion">
-            <button id="btAnterior" class="btn btn-dark" onclick="anterior()">Anterior</button>
-            <button id="btSiguiente" class="btn btn-dark" onclick="siguiente()">Siguiente</button>
-        </div>
+      <button id="btAnterior" class="btn btn-dark" onclick="anterior()">Anterior</button>
+      <button id="btSiguiente" class="btn btn-dark" onclick="siguiente()">Siguiente</button>
+    </div>
 
-        </div>
-        <?php
+  </div>
+  <?php
   include "footer.php";
   ?>
   <script src="../js/jquery-3.6.0.min.js"></script>
   <script>
     let pag;
-    window.onload = function(){
+    window.onload = function() {
       pintarTablaPinchos();
     }
 
-    function pintarTablaPinchos() {  
-    let tabla = $("#myTable");
-    pag = 0;
-    $.ajax({
+    function pintarTablaPinchos() {
+      let tabla = $("#myTable");
+      pag = 0;
+      $.ajax({
         type: "GET",
         url: "http://localhost/logrocho/index.php/listado-pinchos/0/3",
         dataType: "json",
-        success: function (response) {
-            //TABLA
-            tabla.html("");
-            for(let i = 0; i < 3; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");           
-            }
-            $("#btAnterior").prop("disabled", true);
+        success: function(response) {
+          //TABLA
+          tabla.html("");
+          for (let i = 0; i < 3; i++) {
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
+          }
+          $("#btAnterior").prop("disabled", true);
         }
-    });
-}
-
-function siguiente(){
-    let tabla = $("#myTable");
-    pag = pag + 3;
-    $.ajax({
-        type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-pinchos/"+pag+"/3",
-        //data: {"pais" : datalist.value},
-        dataType: "json",
-        success: function (response) {
-            //TABLA
-            tabla.html("");
-            $("#btAnterior").prop("disabled", false);
-            if(response.length < pag){
-              for(let i = 0; i < response.length; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
-                $("#btSiguiente").prop("disabled", true);
-              }
-            }else{
-              for(let i = 0; i < 3; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
-                $("#btSiguiente").prop("disabled", false);
-              }
-            }          
-            
-        }
-    });   
-}
-
-function anterior(){
-    let tabla = $("#myTable");
-    if((pag - 3) >= 0){
-      pag = pag - 3;   
+      });
     }
-    $.ajax({
+
+    function siguiente() {
+      let tabla = $("#myTable");
+      pag = pag + 3;
+      $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-pinchos/"+pag+"/3",
+        url: "http://localhost/logrocho/index.php/listado-pinchos/" + pag + "/3",
         //data: {"pais" : datalist.value},
         dataType: "json",
-        success: function (response) {
-            //TABLA
-            tabla.html("");
-            $("#btSiguiente").prop("disabled", false);
-            if(response.length < pag){
-              for(let i = 0; i < response.length; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
-                $("#btAnterior").prop("disabled", true);
-              }
-            }else{
-              for(let i = 0; i < 3; i++){
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>"+response[i].cod_pincho+"</td><td onclick='irAFicha(this)'>"+response[i].nombre+"</td><td onclick='irAFicha(this)'>"+response[i].descripcion+"</td><td onclick='irAFicha(this)'>"+response[i].precio+"€</td><td onclick='irAFicha(this)'>"+response[i].bar+"</td></tr>");
-                $("#btAnterior").prop("disabled", false);
-              }
-            }          
-        }
-    });   
-}
+        success: function(response) {
+          //TABLA
+          tabla.html("");
+          $("#btAnterior").prop("disabled", false);
+          if (response.length < pag) {
+            for (let i = 0; i < response.length; i++) {
+              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
+              $("#btSiguiente").prop("disabled", true);
+            }
+          } else {
+            for (let i = 0; i < 3; i++) {
+              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
+              $("#btSiguiente").prop("disabled", false);
+            }
+          }
 
+        }
+      });
+    }
+
+    function anterior() {
+      let tabla = $("#myTable");
+      if ((pag - 3) >= 0) {
+        pag = pag - 3;
+      }
+      $.ajax({
+        type: "GET",
+        url: "http://localhost/logrocho/index.php/listado-pinchos/" + pag + "/3",
+        //data: {"pais" : datalist.value},
+        dataType: "json",
+        success: function(response) {
+          //TABLA
+          tabla.html("");
+          $("#btSiguiente").prop("disabled", false);
+          if (response.length < pag) {
+            for (let i = 0; i < response.length; i++) {
+              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
+              $("#btAnterior").prop("disabled", true);
+            }
+          } else {
+            for (let i = 0; i < 3; i++) {
+              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
+              $("#btAnterior").prop("disabled", false);
+            }
+          }
+        }
+      });
+    }
   </script>
   <script src="../js/script.js"></script>
-  
+
 </body>
 
 </html>

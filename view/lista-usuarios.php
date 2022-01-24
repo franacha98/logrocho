@@ -29,7 +29,13 @@
     <br>
     <div id="filtros">
       <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir</button></a>
-      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button>
+      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
+      <label for="paginacion">Configurar páginación:</label>
+      <select name="paginacion" class="form-select" aria-label="Default select example">
+        <option selected value="3">Tres en tres</option>
+        <option value="5">Cinco en cinco</option>
+        <option value="20">Todo</option>
+      </select>
     </div><br>
     <table class="table table-hover table-bordered">
       <thead>
