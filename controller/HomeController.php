@@ -8,7 +8,11 @@
         {
             $this->db = new BBDD();
         }
-
+        /**
+         * muestra la home de la pagina
+         *
+         * @return void
+         */
         public function renderizarHome(){
             unset($_SESSION["admin"]);
             session_destroy();
@@ -18,7 +22,11 @@
             $rutaOlvidada = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/contrasena-olvidada";
             require("view/index.php");
         }
-
+        /**
+         * muestra la pagina de contraseña olvidada
+         *
+         * @return void
+         */
         public function renderizarContrasenaOlvidada(){
 
             $aux = str_replace("index.php/", "",$_SERVER["REQUEST_URI"]);
@@ -27,7 +35,11 @@
             $rutaOlvidada = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/contrasena-olvidada";
             require("view/contrasena-olvidada.php");
         }
-
+        /**
+         * comprueba el login
+         *
+         * @return void
+         */
         public function comprobarLogin(){
             
             $username = $_POST["usuario"];
@@ -46,7 +58,11 @@
                 header("Location: $ruta");
             }
         }
-
+        /**
+         * lleva al panel de administracion
+         *
+         * @return void
+         */
         public function panelAdministracion(){
             $rutaListaBares = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-bares";
             $rutaListaPinchos = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-pinchos";

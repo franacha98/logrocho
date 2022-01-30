@@ -13,7 +13,13 @@ class BBDD
         $this->DB_PASS = '';
         $this->conexion = new PDO($this->DB_INFO, $this->DB_USER, $this->DB_PASS);
     }
-
+    /**
+     * Comprueba el login para un usuario y contraseña
+     *
+     * @param [string] $usuario
+     * @param [string] $passwd
+     * @return void
+     */
     public function comprobarLogin($usuario, $passwd)
     {
         try {
@@ -32,7 +38,52 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Lista todas las reseñas
+     *
+     * @return void
+     */
+    public function listaResenas()
+    {
+        try {
+            $sql = "SELECT * FROM valoraciones;";
+            $resultado = $this->conexion->query($sql);
+            $valoraciones = array();
+            foreach ($resultado as $aux) {
+                $valoracion = new Resena($aux["cod_valoracion"], $aux["usuario"], $aux["pincho"], $aux["comentario"], $aux["likes"]);
+                array_push($valoraciones, $valoracion);
+            }
+            return $valoraciones;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+    /**
+     * JSON con todas las reseñas
+     *
+     * @param [int] $limit
+     * @param [int] $num
+     * @return void
+     */
+    public function listaResenaJson($limit, $num)
+    {
+        try {
+            $sql = "SELECT * FROM valoraciones LIMIT $limit, $num;";
+            $resultado = $this->conexion->query($sql);        
+            $valoraciones = array();
+            foreach ($resultado as $aux) {
+                array_push($valoraciones, $aux);
+            }
+            return $valoraciones;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+    /**
+     * Lista todos los usuarios
+     *
+     * @return void
+     */
     public function listaUsuarios()
     {
         try {
@@ -48,7 +99,13 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Lista formato JSON de todos los usuarios
+     *
+     * @param [int] $limit
+     * @param [int] $num
+     * @return void
+     */
     public function listaUsuariosJson($limit, $num)
     {
         try {
@@ -65,7 +122,47 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
+    /**
+     * añade una nueva reseña
+     *
+     * @param [string] $usuario
+     * @param [int] $pincho
+     * @param [string] $comentario
+     * @param [int] $likes
+     * @return void
+     */
+    public function anadirResena($usuario, $pincho, $comentario, $likes)
+    {
+        try {
 
+            $this->conexion->beginTransaction();
+
+            $sql = "INSERT INTO valoraciones (usuario, pincho, comentario, likes) VALUES ('$usuario', '$pincho', '$comentario', '$likes')";
+            
+            $resultado = $this->conexion->query($sql);
+
+            if (!$resultado) {
+                echo print_r($this->conexion->errorInfo());
+                $this->conexion->rollBack();
+                return false;
+            }
+
+
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+    /**
+     * Aañded un nuevo pincho
+     *
+     * @param [string] $nombre
+     * @param [string] $descripcion
+     * @param [float] $precio
+     * @param [int] $bar
+     * @return void
+     */
     public function anadirPincho($nombre, $descripcion, $precio, $bar)
     {
         try {
@@ -89,7 +186,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * elimina un pincho
+     *
+     * @param [int] $cod_pincho
+     * @return void
+     */
     public function eliminarPincho($cod_pincho){
         try {
             $sql = "DELETE FROM pinchos WHERE cod_pincho=$cod_pincho";
@@ -99,8 +201,25 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
-
+    /**
+     * Elimina una reseña
+     *
+     * @param [int] $cod_valoracion
+     * @return void
+     */
+    public function eliminarResena($cod_valoracion){
+        try {
+            $sql = "DELETE FROM valoraciones WHERE cod_valoracion=$cod_valoracion";
+            $result = $this->conexion->query($sql);
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+    /**
+     * devuelve todos los pinchos
+     *
+     * @return void
+     */
     public function listaPinchos()
     {
         try {
@@ -116,7 +235,13 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Devuelve todos los pinchos en formato JSON
+     *
+     * @param [int] $limit
+     * @param [int] $num
+     * @return void
+     */
     public function listaPinchosJson($limit, $num)
     {
         try {
@@ -133,7 +258,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Recupera los datos de un pincho con un ID dado
+     *
+     * @param [int] $cod_pincho
+     * @return void
+     */
     public function recuperarPincho($cod_pincho)
     {
         try {
@@ -150,7 +280,35 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
+    /**
+     * Recupera una reseña con un id dado
+     *
+     * @param [int] $cod_valoracion
+     * @return void
+     */
+    public function recuperarResena($cod_valoracion)
+    {
+        try {
+            $sql = "SELECT * FROM valoraciones WHERE cod_valoracion=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $cod_valoracion));
+            $valoraciones = array();
+            foreach ($stmt as $bar) {
+                $aux = new Resena($bar["cod_valoracion"], $bar["usuario"], $bar["pincho"], $bar["comentario"], $bar["likes"]);
+                array_push($valoraciones, $aux);
+            }
+            return $valoraciones[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
 
+    /**
+     * Recupera un usuario con un correo dado
+     *
+     * @param [string] $correo
+     * @return void
+     */
     public function recuperarUsuario($correo)
     {
         try {
@@ -167,7 +325,15 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Añade un nuevo usuario
+     *
+     * @param [string] $usuario
+     * @param [string] $contrasena
+     * @param [bool] $admin
+     * @param [string] $nombre
+     * @return void
+     */
     public function anadirUsuario($usuario, $contrasena, $admin, $nombre)
     {
         try {
@@ -191,7 +357,15 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * modifica un usuario
+     *
+     * @param [string] $usuario
+     * @param [string] $contrasena
+     * @param [bool] $admin
+     * @param [string] $nombre
+     * @return void
+     */
     public function modificarUsuario($usuario, $contrasena, $admin, $nombre){
         try {      
             $sql = "UPDATE usuarios SET nombre='$nombre', usuario='$usuario', admin='$admin', contrasena='$contrasena' WHERE usuario='$usuario'";
@@ -201,7 +375,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * elimina un usuario
+     *
+     * @param [string] $usuario
+     * @return void
+     */
     public function eliminarUsuario($usuario){
         try {
             $sql = "DELETE FROM usuarios WHERE usuario='$usuario'";
@@ -211,7 +390,16 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * modifica un pincho
+     *
+     * @param [int] $cod_pincho
+     * @param [string] $nombre
+     * @param [string] $descripcion
+     * @param [float] $precio
+     * @param [int] $bar
+     * @return void
+     */
     public function modificarPincho($cod_pincho, $nombre, $descripcion, $precio, $bar){
         try {      
             $sql = "UPDATE pinchos SET nombre='$nombre', descripcion='$descripcion', precio='$precio', bar='$bar' WHERE cod_pincho=$cod_pincho";
@@ -221,7 +409,33 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * modifica una reseña
+     *
+     * @param [int] $cod_valoracion
+     * @param [string] $usuario
+     * @param [int] $pincho
+     * @param [string] $comentario
+     * @param [int] $likes
+     * @return void
+     */
+    public function modificarResena($cod_valoracion, $usuario, $pincho, $comentario, $likes){
+        try {      
+            $sql = "UPDATE valoraciones SET usuario='$usuario', pincho='$pincho', comentario='$comentario', likes='$likes' WHERE cod_valoracion=$cod_valoracion";
+            echo $sql;
+            $resultado = $this->conexion->query($sql);
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+    /**
+     * añade un nuevo bar
+     *
+     * @param [string] $nombre
+     * @param [double] $latitud
+     * @param [double] $longitud
+     * @return void
+     */
     public function anadirBar($nombre, $latitud, $longitud)
     {
         try {
@@ -245,7 +459,11 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * lista todos los bares
+     *
+     * @return void
+     */
     public function listaBares()
     {
         try {
@@ -261,7 +479,13 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Formato JSON de la lista de todos los bares
+     *
+     * @param [int] $limit
+     * @param [int] $num
+     * @return void
+     */
     public function listaBaresJson($limit, $num)
     {
         try {
@@ -278,7 +502,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * recupera informacion de un bar especifico mediante el id
+     *
+     * @param [int] $cod_bar
+     * @return void
+     */
     public function recuperarBar($cod_bar)
     {
         try {
@@ -295,7 +524,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * elimina un bar especifico
+     *
+     * @param [int] $cod_bar
+     * @return void
+     */
     public function eliminarBar($cod_bar){
         try {
             $sql = "DELETE FROM bares WHERE cod_bar=$cod_bar";
@@ -305,7 +539,15 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * modifica un bar especifico
+     *
+     * @param [int] $cod_bar
+     * @param [string] $nombre
+     * @param [double] $latitud
+     * @param [double] $longitud
+     * @return void
+     */
     public function modificarBar($cod_bar, $nombre, $latitud, $longitud){
         try {      
             $sql = "UPDATE bares SET nombre='$nombre', latitud='$latitud', longitud='$longitud' WHERE cod_bar=$cod_bar";
