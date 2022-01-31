@@ -286,7 +286,7 @@
           resenas = response;
           //TABLA
           tabla.html("");
-          for (let i = 0; i < numero; i++) {
+          for (let i = 0; i < response.length; i++) {
             tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
 
           }

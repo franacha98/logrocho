@@ -285,7 +285,7 @@
           pinchos = response;
           //TABLA
           tabla.html("");
-          for (let i = 0; i < numero; i++) {
+          for (let i = 0; i < response.length; i++) {
             tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
           }
           $("#btAnterior").prop("disabled", true);

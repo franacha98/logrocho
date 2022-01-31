@@ -5,7 +5,7 @@
     <div class="py-4 px-3 mb-4 bg-light">
       <div class="media d-flex align-items-center"><a href="#"><img src="../resources/media/foto_perfil.png" alt="Foto de perfil" width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm"></a>
         <div class="media-body">
-          <h4 class="m-0">ADMIN</h4>
+          <h4 class="m-0"><?php echo $_SESSION["usuario"]; ?></h4>
           <p class="font-weight-light text-muted mb-0">Logrocho</p>
         </div>
       </div>

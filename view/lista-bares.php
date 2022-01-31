@@ -240,7 +240,7 @@
           bares = response;
           //TABLA
           tabla.html("");
-          for (let i = 0; i < numero; i++) {
+          for (let i = 0; i < response.length; i++) {
             tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
 
           }

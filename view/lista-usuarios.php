@@ -193,7 +193,7 @@
           users = response;
           //TABLA
           tabla.html("");
-          for (let i = 0; i < numero; i++) {
+          for (let i = 0; i < response.length; i++) {
             tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
 
           }

@@ -15,6 +15,7 @@
          */
         public function renderizarHome(){
             unset($_SESSION["admin"]);
+            unset($_SESSION["usuario"]);
             session_destroy();
 
             $aux = str_replace("index.php/", "",$_SERVER["REQUEST_URI"]);
@@ -50,8 +51,11 @@
             if($this->db->comprobarLogin($username, $password)){
                 
                 $_SESSION["admin"] = "YES";
+                $nombre = $this->db->nombreUsuario($username);
+                $_SESSION["usuario"] = $nombre;
                 $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/panel-administracion";
                 echo $ruta;
+
                 header("Location: $ruta");
             }else{
                 $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php";

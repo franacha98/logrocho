@@ -39,6 +39,29 @@ class BBDD
         }
     }
     /**
+     * Devuelve el nombre de un usuario para añadirlo a la sesion
+     *
+     * @param [string] $usuario
+     * @return string
+     */
+    public function nombreUsuario($usuario){
+        try {
+            $sql = "SELECT nombre FROM usuarios WHERE usuario=:user";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("user" => $usuario));
+
+            $usuarios = array();
+            foreach ($stmt as $bar) {
+                $aux = $bar["nombre"];
+                array_push($usuarios, $aux);
+            }
+            return $usuarios[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    /**
      * Lista todas las reseñas
      *
      * @return void
