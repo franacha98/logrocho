@@ -90,6 +90,12 @@
         $usuarioscontroller->listaUsuariosJson($array_ruta[1], $array_ruta[2]);
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "listado-resenas"){
         $resenascontroller->listaResenaJson($array_ruta[1], $array_ruta[2]);
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "eliminar-foto-pincho"){
+        $pinchoscontroller->eliminarFotoPincho($array_ruta[1]);
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "eliminar-foto-bar"){
+        $barescontroller->eliminarFotoBar($array_ruta[1]);
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "cerrar-sesion"){
+        $homecontroller->cerrarSesion();
     }else{   
         $homecontroller->renderizarHome();
     }

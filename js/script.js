@@ -21,27 +21,6 @@ $(function () {
     });
   });
   
-  /*$(function () {
-    $('td').on('click', function () {
-      let aux = location.href.split("/").length;
-      let page = location.href.split("/")[aux-1];
-      switch (page) {
-        case "lista-resenas":
-          location.href = "ficha-resena/" + this.parentElement.children[1].innerText;
-          break;
-        case "lista-bares":
-          location.href = "ficha-bar/" + this.parentElement.children[1].innerText;
-          break;
-        case "lista-pinchos":
-          location.href = "ficha-pincho/" + this.parentElement.children[1].innerText;
-          break;
-        case "lista-usuarios":
-          location.href = "ficha-usuario/" + this.parentElement.children[1].innerText;
-          break;
-      }
-    });
-  });*/
-
   function irAFicha(element){
     let aux = location.href.split("/").length;
     let page = location.href.split("/")[aux-1];
@@ -59,6 +38,43 @@ $(function () {
         location.href = "ficha-usuario/" + element.parentElement.children[1].innerText;
         break;
     }
+  }
+
+  function modalFotoPincho(elemento) {  
+    if (confirm("¿Desea eliminar la imagen seleccionada?")) {
+      eliminarImgPincho(elemento);
+    }
+  } 
+  function modalFotoBar(elemento) {  
+    if (confirm("¿Desea eliminar la imagen seleccionada?")) {
+      eliminarImgBar(elemento);
+    }
+  } 
+
+  function eliminarImgBar(elemento){
+    let id = elemento.id;
+
+    $.ajax({
+      type: "GET",
+      url: "http://localhost/logrocho/index.php/eliminar-foto-bar/"+id,
+      dataType: "json",
+      success: function (response) {
+        window.location.reload();
+      }
+    });
+  }
+
+  function eliminarImgPincho(elemento){
+    let id = elemento.id;
+
+    $.ajax({
+      type: "GET",
+      url: "http://localhost/logrocho/index.php/eliminar-foto-pincho/"+id,
+      dataType: "json",
+      success: function (response) {
+        window.location.reload();
+      }
+    });
   }
 
   

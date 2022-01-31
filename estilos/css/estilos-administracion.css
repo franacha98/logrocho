@@ -342,3 +342,13 @@
 #selectPaginacion{
   width: 20%;
 }
+
+#sidebarCollapse:hover{
+  cursor: pointer;
+}
+
+#cerrarSesion{
+  position: relative;
+  top: 62%;
+  left: 20%;
+}

@@ -29,6 +29,25 @@
             $rutaAnadirPincho = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho";
             $this->db->anadirPincho($_POST["nombre"], $_POST["descripcion"], $_POST["precio"], $_POST["bar"]);
 
+            $cod_pincho = $this->db->recuperarPinchoNombre($_POST["nombre"]);
+            //echo $cod_bar;
+            //var_dump($_FILES);
+            $countfiles = count($_FILES['file']['name']);
+            //echo $countfiles;
+            $fotos_bar = array();
+            $rutaBase = file_get_contents("config.txt");
+            echo $rutaBase;
+            $rutaFotos = $rutaBase . "\\img_pinchos\\" . $cod_pincho;
+            for($i=0;$i<$countfiles;$i++){
+                $filename = $_FILES['file']['name'][$i];               
+                array_push($fotos_bar, $filename);
+                if (!file_exists($rutaFotos.$filename)) {
+                    mkdir($rutaFotos, 0777, true);
+                }
+                move_uploaded_file($_FILES['file']['tmp_name'][$i], $rutaFotos."\\".$filename);                
+            }
+            $this->db->anadirFotosPincho($cod_pincho, $fotos_bar);
+
             header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista");
         }
         /**
@@ -60,8 +79,17 @@
          * @return void
          */
         public function fichaPincho($cod_pincho){
+            $bares = $this->db->listaBares();
             $pincho = $this->db->recuperarPincho($cod_pincho);
-            
+            $aux_fotos = $this->db->recuperarFotosPincho($cod_pincho);
+               
+            $fotos = array();
+            $ids = array();
+            for ($i=0; $i < count($aux_fotos); $i++) { 
+                array_push($fotos, $aux_fotos[$i]["ruta"]);
+                array_push($ids, $aux_fotos[$i]["id"]);
+            }
+
             $rutaEliminar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/eliminar-pincho/" . $pincho->getCod_pincho();
             $rutaModificar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/modificar-pincho";
             require("view/ficha-pincho.php");
@@ -78,8 +106,23 @@
             $precio = $_POST["precio"];
             $bar = $_POST["bar"];
 
-            $this->db->modificarPincho($cod_pincho, $nombre, $descripcion, $precio, $bar);
+            $countfiles = count($_FILES['file']['name']);
+            $fotos_bar = array();
+            $rutaBase = file_get_contents("config.txt");
+            echo $rutaBase;
+            $rutaFotos = $rutaBase . "\\img_pinchos\\" . $cod_pincho;
+            for($i=0;$i<$countfiles;$i++){
+                $filename = $_FILES['file']['name'][$i];
+                array_push($fotos_bar, $filename);
+                if (!file_exists($rutaFotos.$filename)) {
+                    mkdir($rutaFotos, 0777, true);
+                }
+                move_uploaded_file($_FILES['file']['tmp_name'][$i], $rutaFotos."\\".$filename);
+                
+            }
 
+            $this->db->modificarPincho($cod_pincho, $nombre, $descripcion, $precio, $bar);
+            $this->db->anadirFotosPincho($cod_pincho, $fotos_bar);
             header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/ficha-pincho/" . $_POST["cod_pincho"]);
         }
         /**
@@ -91,10 +134,9 @@
          */
         public function listaPinchosJson($limit, $num){
             $pinchos = $this->db->listaPinchosJson($limit, $num);
-            //var_dump($bares);
+           
             echo json_encode($pinchos);
-            //$rutaAnadir = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";
-            //require("view/lista-bares.php");
+            
         }
         /**
          * pincho en formato json
@@ -107,6 +149,16 @@
 
             echo json_encode($pincho);
         }
+
+        public function eliminarFotoPincho($id){
+            $ok = $this->db->eliminarFotoPincho($id);
+
+            if($ok){
+                echo "OK";
+            }else{
+                echo "KO";
+            }
+        }   
     }
 
 ?>

@@ -30,7 +30,7 @@
           <div class="col-auto">
             <!-- Submit button -->
             <button type="submit" class="btn btn-dark">
-              Subscribe
+              Suscribirse
             </button>
           </div>
          

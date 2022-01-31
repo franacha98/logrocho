@@ -28,15 +28,15 @@
     <input class="form-control" id="buscador" type="text" placeholder="Buscar...">
     <br>
     <div id="filtros">
-      <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir</button></a>
-      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
       <label for="paginacion">Configurar páginación:</label>
-      <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaUsuarios()">
+      <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaBares()">
         <option selected value="3">Tres en tres</option>
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
-      </select>
-    </div><br>
+      </select><br>
+      <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nuevo usuario</button></a>
+      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
+    </div>
     <table class="table table-hover table-bordered">
       <thead>
         <tr>
@@ -84,18 +84,18 @@
           return 0;
         });
         ordCorreo = true;
-        
+
       } else {
         users.sort(function(a, b) {
-        if (a.usuario < b.usuario) {
-          return 1;
-        }
-        if (a.usuario > b.usuario) {
-          return -1;
-        }
-        // a must be equal to b
-        return 0;
-      });
+          if (a.usuario < b.usuario) {
+            return 1;
+          }
+          if (a.usuario > b.usuario) {
+            return -1;
+          }
+          // a must be equal to b
+          return 0;
+        });
         ordCorreo = false;
       }
       let tabla = $("#myTable");
@@ -107,7 +107,7 @@
       }
     }
 
-    function ordenarPorNombre(){
+    function ordenarPorNombre() {
       ordCorreo = false;
       ordAdmin = false;
       if (ordNombre == false) {
@@ -122,17 +122,17 @@
           return 0;
         });
         ordNombre = true;
-        
+
       } else {
         users.sort(function(a, b) {
-        if (a.nombre < b.nombre) {
-          return 1;
-        }
-        if (a.nombre > b.nombre) {
-          return -1;
-        }
-        return 0;
-      });
+          if (a.nombre < b.nombre) {
+            return 1;
+          }
+          if (a.nombre > b.nombre) {
+            return -1;
+          }
+          return 0;
+        });
         ordNombre = false;
       }
       let tabla = $("#myTable");
@@ -144,7 +144,7 @@
       }
     }
 
-    function ordenarPorAdmin(){
+    function ordenarPorAdmin() {
       ordCorreo = false;
       ordNombre = false;
       if (ordAdmin == false) {
@@ -159,18 +159,18 @@
           return 0;
         });
         ordAdmin = true;
-        
+
       } else {
         users.sort(function(a, b) {
-        if (a.admin < b.admin) {
-          return 1;
-        }
-        if (a.admin > b.admin) {
-          return -1;
-        }
-        return 0;
-      });
-      ordAdmin = false;
+          if (a.admin < b.admin) {
+            return 1;
+          }
+          if (a.admin > b.admin) {
+            return -1;
+          }
+          return 0;
+        });
+        ordAdmin = false;
       }
       let tabla = $("#myTable");
       let numero = parseInt($("#paginacion").val());
@@ -197,8 +197,6 @@
             tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
 
           }
-          //tabla.append(tbody);
-          $("#btAnterior").prop("disabled", true);
         }
       });
     }
@@ -216,17 +214,8 @@
             users = response;
             //TABLA
             tabla.html("");
-            $("#btAnterior").prop("disabled", false);
-            if (response.length < pag) {
-              for (let i = 0; i < response.length; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
-                $("#btSiguiente").prop("disabled", true);
-              }
-            } else {
-              for (let i = 0; i < numero; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
-                $("#btSiguiente").prop("disabled", false);
-              }
+            for (let i = 0; i < numero; i++) {
+              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + users[i].usuario + "</td><td onclick='irAFicha(this)'>" + users[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((users[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
             }
           } else {
             pag = pag - numero;
@@ -250,20 +239,9 @@
           //TABLA
           users = response;
           tabla.html("");
-          $("#btSiguiente").prop("disabled", false);
-          if (response.length < pag) {
-
-            for (let i = 0; i < response.length; i++) {
-              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
-              $("#btAnterior").prop("disabled", true);
-            }
-          } else {
-            for (let i = 0; i < numero; i++) {
-              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((response[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
-              $("#btAnterior").prop("disabled", false);
-            }
+          for (let i = 0; i < numero; i++) {
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + users[i].usuario + "</td><td onclick='irAFicha(this)'>" + users[i].nombre + "</td><td onclick='irAFicha(this)'>" + ((users[i].admin == 1) ? 'SI' : 'NO') + "</td></tr>");
           }
-          // pag = nuevoPag;
         }
       });
     }

@@ -268,7 +268,7 @@ class BBDD
     public function listaPinchosJson($limit, $num)
     {
         try {
-            $sql = "SELECT * FROM pinchos LIMIT $limit, $num;";
+            $sql = "SELECT pinchos.cod_pincho,pinchos.nombre as nombre,pinchos.descripcion,pinchos.precio,bares.nombre as bar FROM pinchos JOIN bares ON (pinchos.bar=bares.cod_bar) LIMIT $limit, $num;";
             $resultado = $this->conexion->query($sql);        
             $pinchos = array();
             foreach ($resultado as $aux) {
@@ -576,11 +576,161 @@ class BBDD
             $sql = "UPDATE bares SET nombre='$nombre', latitud='$latitud', longitud='$longitud' WHERE cod_bar=$cod_bar";
             echo $sql;
             $resultado = $this->conexion->query($sql);
+            
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
         }
     }
 
+    public function anadirFotosPincho($cod_pincho, $fotos){
+        try{
+            $this->conexion->beginTransaction();
+            $ruta = "resources/img_pinchos/" . $cod_pincho . "/";
 
+            for($i = 0; $i < count($fotos); $i++){
+                if($fotos[$i] != "" && $fotos[$i] != null){
+                    $rutaCompleta = $ruta . "" . $fotos[$i];
+                    $sql = "INSERT INTO fotos_pinchos (ruta, pincho) VALUES ('$rutaCompleta', '$cod_pincho')";
+                    $resultado = $this->conexion->query($sql);
+                    if (!$resultado) {
+                    
+                        $this->conexion->rollBack();
+                        return false;
+                    }
+                }                               
+            }
+           
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
 
+    public function anadirFotosBar($cod_bar, $fotos){
+        try{
+            $this->conexion->beginTransaction();
+            $ruta = "resources/img_bares/" . $cod_bar . "/";
+
+            for($i = 0; $i < count($fotos); $i++){
+                if($fotos[$i] != "" && $fotos[$i] != null){
+                    $rutaCompleta = $ruta . "" . $fotos[$i];
+                    $sql = "INSERT INTO fotos_bares (ruta, bar) VALUES ('$rutaCompleta', '$cod_bar')";
+                    $resultado = $this->conexion->query($sql);
+                    if (!$resultado) {
+                        //echo print_r($this->conexion->errorInfo());
+                        $this->conexion->rollBack();
+                        return false;
+                    }
+                }      
+            }
+           
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function recuperarFotosBar($cod_bar){
+        try{
+            $sql = "SELECT id, ruta FROM fotos_bares WHERE bar=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $cod_bar));
+            $bares = array();
+            foreach ($stmt as $bar) {
+                $aux = array(
+                    "id" => $bar["id"],
+                    "ruta" => $bar["ruta"]
+                );
+                array_push($bares, $aux);
+            }
+            return $bares;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function recuperarFotosPincho($cod_pincho){
+        try{
+            $sql = "SELECT id,ruta FROM fotos_pinchos WHERE pincho=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $cod_pincho));
+            $bares = array();
+            foreach ($stmt as $bar) {
+                $aux = array(
+                    "id" => $bar["id"],
+                    "ruta" => $bar["ruta"]
+                );
+                array_push($bares, $aux);
+            }
+            return $bares;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function recuperarBarNombre($nombre)
+    {
+        try {
+            $sql = "SELECT cod_bar FROM bares WHERE nombre=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $nombre));
+            $bares = array();
+            foreach ($stmt as $bar) {
+                $aux = $bar["cod_bar"];
+                array_push($bares, $aux);
+            }
+            return $bares[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function recuperarPinchoNombre($nombre)
+    {
+        try {
+            $sql = "SELECT cod_pincho FROM pinchos WHERE nombre=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $nombre));
+            $bares = array();
+            foreach ($stmt as $bar) {
+                $aux = $bar["cod_pincho"];
+                array_push($bares, $aux);
+            }
+            return $bares[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function eliminarFotoPincho($id){
+        try {
+            $sql = "DELETE FROM fotos_pinchos WHERE id='$id'";
+            $resultado = $this->conexion->query($sql);
+
+            if (!$resultado) {
+                $this->conexion->rollBack();
+                return false;
+            }
+            return true;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function eliminarFotoBar($id){
+        try {
+            $sql = "DELETE FROM fotos_bares WHERE id='$id'";
+            $resultado = $this->conexion->query($sql);
+
+            if (!$resultado) {
+                $this->conexion->rollBack();
+                return false;
+            }
+            return true;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
 }

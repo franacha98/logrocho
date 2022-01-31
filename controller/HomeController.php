@@ -23,6 +23,16 @@
             $rutaOlvidada = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/contrasena-olvidada";
             require("view/index.php");
         }
+
+        public function cerrarSesion(){
+            unset($_SESSION["admin"]);
+            unset($_SESSION["usuario"]);
+            session_destroy();
+
+            $ruta = "http://" . $_SERVER["HTTP_HOST"]."/logrocho/index.php";
+            header("Location: $ruta");
+        }
+
         /**
          * muestra la pagina de contraseña olvidada
          *
@@ -71,7 +81,7 @@
             $rutaListaBares = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-bares";
             $rutaListaPinchos = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-pinchos";
             $rutaListaUsuarios = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-usuarios";
-            
+            $rutaListaResenas = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-resenas";
             require("view/panel-administracion.php");
         }
 

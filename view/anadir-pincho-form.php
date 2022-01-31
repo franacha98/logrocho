@@ -24,7 +24,7 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-                        <form method="POST" action="<?php echo $rutaAnadirPincho; ?>">
+                        <form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirPincho; ?>">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Introduce el nombre del bar">
@@ -41,6 +41,11 @@
                                 <label for="bar">Bar</label>
                                 <input type="number" class="form-control" id="bar" name="bar" placeholder="0">
                             </div><br>
+                            <div class="form-group">
+                                <label for="file">Seleccione imágenes: </label>
+                                <input type="file" class="form-control-file" id="file" name="file[]" multiple>
+                            </div>
+                            <br>
                             <button type="submit" class="btn btn-dark" type="button">Guardar</button>
                         </form>
                     </div>

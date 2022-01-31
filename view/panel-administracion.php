@@ -34,9 +34,9 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Listado de bares</h5>
+            <h5 class="card-title">Listado de pinchos</h5>
             <p class="card-text">Muestra una tabla con la información de todos los pinchos del bares, así como permitir relizar acciones sobre ellos.</p>
-            <a href="lista-pinchos.html" class="btn">Ir al listado de pinchos</a>
+            <a href="<?php echo $rutaListaPinchos;  ?>" class="btn">Ir al listado de pinchos</a>
           </div>
         </div>
       </div>
@@ -45,7 +45,16 @@
           <div class="card-body">
             <h5 class="card-title">Listado de reseñas</h5>
             <p class="card-text">Muestra una tabla con todas las reseñas de los usuarios, tanto a los pinchos como a otras reseñas.</p>
-            <a href="lista-resenas.html" class="btn">Ir al listado de reseñas</a>
+            <a href="<?php echo $rutaListaResenas;  ?>" class="btn">Ir al listado de reseñas</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Listado de usuarios</h5>
+            <p class="card-text">Muestra una tabla con un listado de todos los usuarios y permite realizar varias acciones sobre ellos.</p>
+            <a href="<?php echo $rutaListaUsuarios;  ?>" class="btn">Ir al listado de usuarios</a>
           </div>
         </div>
       </div>

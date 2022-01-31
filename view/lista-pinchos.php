@@ -28,15 +28,15 @@
     <input class="form-control" id="buscador" type="text" placeholder="Buscar...">
     <br>
     <div id="filtros">
-      <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir</button></a>
-      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
       <label for="paginacion">Configurar páginación:</label>
       <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaPinchos()">
         <option selected value="3">Tres en tres</option>
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
-      </select>
-    </div><br>
+      </select><br>
+      <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nuevo pincho</button></a>
+      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
+    </div>
     <table class="table table-hover table-bordered">
       <thead>
         <tr>
@@ -288,7 +288,7 @@
           for (let i = 0; i < response.length; i++) {
             tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
           }
-          $("#btAnterior").prop("disabled", true);
+          
         }
       });
     }
@@ -306,17 +306,8 @@
           pinchos = response;
           if (response.length != 0) {
             tabla.html("");
-            $("#btAnterior").prop("disabled", false);
-            if (response.length < pag) {
-              for (let i = 0; i < response.length; i++) {
+            for (let i = 0; i < response.length; i++) {
                 tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
-                $("#btSiguiente").prop("disabled", true);
-              }
-            } else {
-              for (let i = 0; i < numero; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
-                $("#btSiguiente").prop("disabled", false);
-              }
             }
           } else {
             pag = pag - numero;
@@ -341,17 +332,10 @@
           pinchos = response;
           //TABLA
           tabla.html("");
-          $("#btSiguiente").prop("disabled", false);
-          if (response.length < pag) {
-            for (let i = 0; i < response.length; i++) {
-              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
-              $("#btAnterior").prop("disabled", true);
-            }
-          } else {
-            for (let i = 0; i < numero; i++) {
-              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
-              $("#btAnterior").prop("disabled", false);
-            }
+          
+          for (let i = 0; i < response.length; i++) {
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_pincho + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].descripcion + "</td><td onclick='irAFicha(this)'>" + response[i].precio + "€</td><td onclick='irAFicha(this)'>" + response[i].bar + "</td></tr>");
+               
           }
         }
       });

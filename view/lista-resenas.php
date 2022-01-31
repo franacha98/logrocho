@@ -28,15 +28,15 @@
     <input class="form-control" id="buscador" type="text" placeholder="Buscar...">
     <br>
     <div id="filtros">
-      <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir</button></a>
-      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
       <label for="paginacion">Configurar páginación:</label>
-      <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaResenas()">
+      <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaBares()">
         <option selected value="3">Tres en tres</option>
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
-      </select>
-    </div><br>
+      </select><br>
+      <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nueva reseña</button></a>
+      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionadas</button><br><br>
+    </div>
     <table class="table table-hover table-bordered">
       <thead>
         <tr>
@@ -290,8 +290,7 @@
             tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
 
           }
-          //tabla.append(tbody);
-          $("#btAnterior").prop("disabled", true);
+
         }
       });
     }
@@ -309,18 +308,9 @@
           if (response.length != 0) {
             resenas = response;
             tabla.html("");
-            $("#btAnterior").prop("disabled", false);
-            if (response.length < pag) {
-              for (let i = 0; i < response.length; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
-                $("#btSiguiente").prop("disabled", true);
-              }
-            } else {
-              for (let i = 0; i < numero; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
-                $("#btSiguiente").prop("disabled", false);
-              }
-            }
+            for (let i = 0; i < response.length; i++) {
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
+          }
           } else {
             pag = pag - numero;
           }
@@ -345,17 +335,9 @@
           resenas = response;
           //TABLA
           tabla.html("");
-          $("#btSiguiente").prop("disabled", false);
-          if (response.length < pag) {
-            for (let i = 0; i < response.length; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
-              $("#btAnterior").prop("disabled", true);
-            }
-          } else {
-            for (let i = 0; i < numero; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
-              $("#btAnterior").prop("disabled", false);
-            }
+          
+          for (let i = 0; i < response.length; i++) {
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_valoracion + "</td><td onclick='irAFicha(this)'>" + response[i].usuario + "</td><td onclick='irAFicha(this)'>" + response[i].pincho + "</td><td onclick='irAFicha(this)'>" + response[i].comentario + "</td><td onclick='irAFicha(this)'>" + response[i].likes + "</td></tr>");
           }
         }
       });
