@@ -36,10 +36,16 @@
                             <div class="form-group">
                                 <label for="precio">Precio</label>
                                 <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio de cada pincho">
-                            </div>
+                            </div><br>
                             <div class="form-group">
                                 <label for="bar">Bar</label>
-                                <input type="number" class="form-control" id="bar" name="bar" placeholder="0">
+                                <select name="bar">
+                                    <?php
+                                    for ($i = 0; $i < count($bares); $i++) {
+                                        echo "<option value='" . $bares[$i]->getCod_bar() . "'>" . $bares[$i]->getCod_bar() . " - " . $bares[$i]->getNombre() . "</option>";
+                                    }
+                                    ?>
+                                </select>
                             </div><br>
                             <div class="form-group">
                                 <label for="file">Seleccione imágenes: </label>

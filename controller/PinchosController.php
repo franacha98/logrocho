@@ -27,6 +27,7 @@
          */
         public function anadirPincho(){
             $rutaAnadirPincho = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho";
+            
             $this->db->anadirPincho($_POST["nombre"], $_POST["descripcion"], $_POST["precio"], $_POST["bar"]);
 
             $cod_pincho = $this->db->recuperarPinchoNombre($_POST["nombre"]);
@@ -57,7 +58,7 @@
          */
         public function anadirPinchoVista(){
             $rutaAnadirPincho = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho";
-
+            $bares = $this->db->listaBares();
             require("view/anadir-pincho-form.php");
         }
         /**
