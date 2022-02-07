@@ -34,8 +34,11 @@
                                 <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Correo del usuario">
                             </div>
                             <div class="form-group">
-                                <label for="admin">Es admin</label>
-                                <input type="number" class="form-control" id="admin" name="admin" min="0" max="1" placeholder="0">
+                                <label for="admin">Es admin</label><br>
+                                <select name="admin" id="admin">
+                                    <option value='0'>No</option>
+                                    <option value='1'>Si</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="contrasena">Contraseña</label>

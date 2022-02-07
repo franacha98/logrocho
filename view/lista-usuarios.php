@@ -29,7 +29,7 @@
     <br>
     <div id="filtros">
       <label for="paginacion">Configurar páginación:</label>
-      <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaBares()">
+      <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaUsuarios()">
         <option selected value="3">Tres en tres</option>
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>

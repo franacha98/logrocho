@@ -83,14 +83,13 @@
          * @return void
          */
         public function modificarUsuario(){
-            $usuario = $_POST["usuario"];
-            $contrasena = $_POST["contrasena"];
+            $usuario = $_POST["correo"];
             $admin = $_POST["admin"];
             $nombre = $_POST["nombre"];
 
-            $this->db->modificarUsuario($usuario, $contrasena, $admin, $nombre);
+            $this->db->modificarUsuario($usuario, $admin, $nombre);
 
-            header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/ficha-usuario/" . $usuario);
+            header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/ficha-usuario/" . $_POST["correo"]);
         }
         /**
          * elimina un usuario

@@ -27,7 +27,7 @@
          */
         public function anadirResenaVista(){
             $rutaAnadirResena = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-resena";
-
+            $pinchos = $this->db->listaPinchos();
             require("view/anadir-resena-form.php");
         }
         /**
@@ -59,7 +59,7 @@
          */
         public function fichaResena($cod_valoracion){
             $resena = $this->db->recuperarResena($cod_valoracion);
-            
+            $pincho = $this->db->recuperarPincho($resena->getPincho());
             $rutaEliminar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/eliminar-resena/" . $resena->getCod_valoracion();
             $rutaModificar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/modificar-resena";
             require("view/ficha-resena.php");

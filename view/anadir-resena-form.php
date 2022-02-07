@@ -30,8 +30,15 @@
                                 <input type="text" class="form-control" id="usuario" name="usuario" aria-describedby="usuario" placeholder="Introduce el usuario que escribe la reseña">
                             </div>
                             <div class="form-group">
-                                <label for="pincho">Pincho</label>
-                                <input type="text" class="form-control" id="pincho" name="pincho" placeholder="Introduce el pincho al que se dirige la reseña">
+                                <label for="pincho">Pincho</label><br>
+                                <select name="pincho">
+                                    <?php
+                                    for ($i = 0; $i < count($pinchos); $i++) {
+                                        echo "<option value='" . $pinchos[$i]->getCod_pincho() . "'>" . $pinchos[$i]->getCod_pincho() . " - " . $pinchos[$i]->getNombre() . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <!--<input type="text" class="form-control" id="pincho" name="pincho" placeholder="Introduce el pincho al que se dirige la reseña">-->
                             </div>
                             <div class="form-group">
                                 <label for="comentario">Comentario</label>

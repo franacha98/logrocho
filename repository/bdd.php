@@ -61,6 +61,23 @@ class BBDD
         }
     }
 
+    public function esAdmin($usuario){
+        try {
+            $sql = "SELECT admin FROM usuarios WHERE usuario=:user";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("user" => $usuario));
+
+            $usuarios = array();
+            foreach ($stmt as $bar) {
+                $aux = $bar["admin"];
+                array_push($usuarios, $aux);
+            }
+            return $usuarios[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
     /**
      * Lista todas las reseñas
      *
@@ -389,9 +406,9 @@ class BBDD
      * @param [string] $nombre
      * @return void
      */
-    public function modificarUsuario($usuario, $contrasena, $admin, $nombre){
+    public function modificarUsuario($usuario, $admin, $nombre){
         try {      
-            $sql = "UPDATE usuarios SET nombre='$nombre', usuario='$usuario', admin='$admin', contrasena='$contrasena' WHERE usuario='$usuario'";
+            $sql = "UPDATE usuarios SET nombre='$nombre', usuario='$usuario', admin='$admin' WHERE usuario='$usuario'";
             echo $sql;
             $resultado = $this->conexion->query($sql);
         } catch (PDOException $e) {

@@ -24,33 +24,18 @@
     <div class="card">
         <div class="container-fliud">
             <div class="wrapper row">
-                <div class="preview col-md-6">
-                    
-                    <div class="preview-pic tab-content">
-                      <div class="tab-pane active" id="pic-1"><img src="media/bar2.jpg" /></div>
-                      
-                    </div>
-                    <ul class="preview-thumbnail nav nav-tabs">
-                        <li class="active"><a data-target="#pic-5" data-toggle="tab"><img class="imgPequena" src="media/bar2.jpg" /></a></li>
-                        <li><a data-target="#pic-1" data-toggle="tab"><img class="imgPequena" src="media/los-rotos.jpg" /></a></li>
-                        <li><a data-target="#pic-2" data-toggle="tab"><img class="imgPequena" src="media/losrotos-gulas.jpg" /></a></li>
-                        <li><a data-target="#pic-3" data-toggle="tab"><img class="imgPequena" src="media/bodeguilla-los-rotos.jpg" /></a></li>
-                        <li><a data-target="#pic-4" data-toggle="tab"><img class="imgPequena" src="media/bodeguilla-los-rotos (1).jpg" /></a></li>                      
-                    </ul>         
-                </div>
+                
                 <div class="details col-md-6">
                     <h3 class="product-title">Reseña</h3>
                     <form method="POST" action="<?php echo $rutaModificar ?>">
                     <input type="hidden" name="cod_valoracion" value="<?php echo $resena->getCod_valoracion(); ?>" />
                     <div>                         
                         <span class="review-no">Usuario</span>  
-                        <i class="fa fa-pencil mr-3 fa-fw"></i> 
-                        <input class="form-control" type="text" name="usuario" placeholder="Usuario" value="<?php echo $resena->getUsuario(); ?>">
+                        <input disabled class="form-control" type="text" name="usuario" placeholder="Usuario" value="<?php echo $resena->getUsuario(); ?>">
                     </div><br>
                     <div>                         
                         <span class="review-no">Pincho</span>  
-                        <i class="fa fa-pencil mr-3 fa-fw"></i> 
-                        <input class="form-control" type="text" name="pincho" placeholder="Pincho" value="<?php echo $resena->getPincho(); ?>">
+                        <input disabled class="form-control" type="text" name="pincho" placeholder="Pincho" value="<?php echo $resena->getPincho() . " - " . $pincho->getNombre(); ?>">
                     </div><br>
                     <div>                         
                         <span class="review-no">Comentario</span>  
@@ -59,8 +44,7 @@
                     </div><br>
                     <div>                         
                         <span class="review-no">Likes</span>  
-                        <i class="fa fa-pencil mr-3 fa-fw"></i> 
-                        <input class="form-control" type="number" name="likes" placeholder="0" value="<?php echo $resena->getLikes(); ?>">
+                        <input disabled class="form-control" type="number" name="likes" placeholder="0" value="<?php echo $resena->getLikes(); ?>">
                     </div><br>
                     <div class="action">
                         <button class="btn btn-dark" type="submit" type="button">Guardar</button>

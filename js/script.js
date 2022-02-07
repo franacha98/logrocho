@@ -59,7 +59,7 @@ $(function () {
       url: "http://localhost/logrocho/index.php/eliminar-foto-bar/"+id,
       dataType: "json",
       success: function (response) {
-        window.location.reload();
+        location.reload(true);
       }
     });
   }
@@ -72,9 +72,12 @@ $(function () {
       url: "http://localhost/logrocho/index.php/eliminar-foto-pincho/"+id,
       dataType: "json",
       success: function (response) {
-        window.location.reload();
+        
+        location.reload(true);
       }
     });
   }
 
-  
+var myCarousel = document.querySelector('#carouselExampleCaptions');
+var carousel = new bootstrap.Carousel(myCarousel);
+

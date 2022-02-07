@@ -59,11 +59,20 @@
             $aux = str_replace("index.php/check-login", "",$_SERVER["REQUEST_URI"]);
             
             if($this->db->comprobarLogin($username, $password)){
-                
-                $_SESSION["admin"] = "YES";
+                              
                 $nombre = $this->db->nombreUsuario($username);
+                $esAdmin = $this->db->esAdmin($username);
                 $_SESSION["usuario"] = $nombre;
-                $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/panel-administracion";
+                $ruta = "";
+                if($esAdmin == 1){
+                    $_SESSION["admin"] = "YES";
+                    $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/panel-administracion";
+                }else{
+                    $_SESSION["admin"] = "NO";
+                    $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/inicio";
+                }
+                
+                //$ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/panel-administracion";
                 echo $ruta;
 
                 header("Location: $ruta");
@@ -85,6 +94,13 @@
             require("view/panel-administracion.php");
         }
 
+        public function homePublica(){
+            $rutaListaBares = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-bares";
+            $rutaListaPinchos = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-pinchos";
+            $rutaListaUsuarios = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-usuarios";
+            $rutaListaResenas = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-resenas";
+            require("view/home-publica.php");
+        }
     }
 
 ?>

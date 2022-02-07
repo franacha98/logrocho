@@ -32,6 +32,8 @@
         $homecontroller->comprobarLogin();    
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "panel-administracion"){
         $homecontroller->panelAdministracion();  
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "inicio"){
+        $homecontroller->homePublica();  
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "contrasena-olvidada"){
         $homecontroller->renderizarContrasenaOlvidada();  
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "lista-bares"){

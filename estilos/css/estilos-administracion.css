@@ -349,6 +349,22 @@
 
 #cerrarSesion{
   position: relative;
-  top: 62%;
+  top: 55%;
   left: 20%;
+}
+
+#contenido{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#carouselExampleCaptions{
+  width: 50%;
+}
+
+.carousel-caption{
+  background-color: #333333;
+  color: white;
+  opacity: .7;
 }

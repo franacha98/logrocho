@@ -27,7 +27,7 @@
                         <form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirPincho; ?>">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Introduce el nombre del bar">
+                                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Introduce el nombre del pincho">
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Descripcion</label>

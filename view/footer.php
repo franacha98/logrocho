@@ -57,16 +57,16 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white">Quiénes somos</a>
+              <a href="#" class="text-white">Quiénes somos</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Política de privacidad</a>
+              <a href="#" class="text-white">Política de privacidad</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Política de cookies</a>
+              <a href="#" class="text-white">Política de cookies</a>
             </li>         
             <li>
-              <a href="#!" class="text-white">Protección de datos</a>
+              <a href="#" class="text-white">Protección de datos</a>
             </li>
           </ul>
         </div>
@@ -89,16 +89,16 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white">Link 1</a>
+              <a href="#" class="text-white">Link 1</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Link 2</a>
+              <a href="#" class="text-white">Link 2</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Link 3</a>
+              <a href="#" class="text-white">Link 3</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Link 4</a>
+              <a href="#" class="text-white">Link 4</a>
             </li>
           </ul>
         </div>
@@ -108,16 +108,16 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white">Link 1</a>
+              <a href="#" class="text-white">Link 1</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Link 2</a>
+              <a href="#" class="text-white">Link 2</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Link 3</a>
+              <a href="#" class="text-white">Link 3</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Link 4</a>
+              <a href="#" class="text-white">Link 4</a>
             </li>
           </ul>
         </div>
