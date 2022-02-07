@@ -34,6 +34,31 @@
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
       </select><br>
+      
+
+      <div id="columnasAMostrar">
+        <span>Columnas a mostrar</span>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colIdResena" checked onchange="ocultarColumna('colIdResena')">
+          <label class="form-check-label" for="colIdResena">ID</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colUsuarioResena" checked onchange="ocultarColumna('colUsuarioResena')">
+          <label class="form-check-label" for="colUsuarioResena">Usuario</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colPinchoResena" checked onchange="ocultarColumna('colPinchoResena')">
+          <label class="form-check-label" for="colPinchoResena">Pincho</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colComentarioResena" checked onchange="ocultarColumna('colComentarioResena')">
+          <label class="form-check-label" for="colComentarioResena">Comentario</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colLikesResena" checked onchange="ocultarColumna('colLikesResena')">
+          <label class="form-check-label" for="colLikesResena">Likes</label>
+        </div>
+      </div><br>
       <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nueva reseña</button></a>
       <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionadas</button><br><br>
     </div>
@@ -41,11 +66,11 @@
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col" onclick="ordenarID()">ID</th>
-          <th scope="col" onclick="ordenarUsuario()">Usuario</th>
-          <th scope="col" onclick="ordenarPincho()">Pincho</th>
-          <th scope="col" onclick="ordenarComentario()">Comentario</th>
-          <th scope="col" onclick="ordenarLikes()">Likes</th>
+          <th scope="col" onclick="ordenarID()" class="idresena">ID</th>
+          <th scope="col" onclick="ordenarUsuario()" class="usuarioresena">Usuario</th>
+          <th scope="col" onclick="ordenarPincho()" class="pinchoresena">Pincho</th>
+          <th scope="col" onclick="ordenarComentario()" class="comentarioresena">Comentario</th>
+          <th scope="col" onclick="ordenarLikes()" class="likesresena">Likes</th>
         </tr>
       </thead>
       <tbody id="myTable">

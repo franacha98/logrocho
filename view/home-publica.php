@@ -12,7 +12,7 @@
 
 <body>
     <?php
-      include "menu-admin.php";
+      include "menu-publico.php";
     ?>
 
     
@@ -69,6 +69,10 @@
         <script src="../js/jquery-3.6.0.min.js"></script>
         <script src="../estilos/bootstrap/js/bootstrap.min.js"></script>
         <script src="../js/script.js"></script>
+        <script>
+          var myCarousel = document.querySelector('#carouselExampleCaptions');
+          var carousel = new bootstrap.Carousel(myCarousel);
+        </script>
       </body>
       <?php
         include "footer.php";

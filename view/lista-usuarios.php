@@ -34,6 +34,23 @@
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
       </select><br>
+      
+
+      <div id="columnasAMostrar">
+        <span>Columnas a mostrar</span>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colCorreoUsuario" checked onchange="ocultarColumna('colCorreoUsuario')">
+          <label class="form-check-label" for="colCorreoUsuario">Correo</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colNombreUsuario" checked onchange="ocultarColumna('colNombreUsuario')">
+          <label class="form-check-label" for="colNombreUsuario">Nombre</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colAdminUsuario" checked onchange="ocultarColumna('colAdminUsuario')">
+          <label class="form-check-label" for="colAdminUsuario">Administrador</label>
+        </div>
+      </div><br>
       <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nuevo usuario</button></a>
       <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
     </div>
@@ -41,9 +58,9 @@
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col" onclick="ordenarPorCorreo()">Correo</th>
-          <th scope="col" onclick="ordenarPorNombre()">Nombre</th>
-          <th scope="col" onclick="ordenarPorAdmin()">Es administrador</th>
+          <th scope="col" onclick="ordenarPorCorreo()" class="correousuario">Correo</th>
+          <th scope="col" onclick="ordenarPorNombre()" class="nombreusuario">Nombre</th>
+          <th scope="col" onclick="ordenarPorAdmin()" class="adminusuario">Es administrador</th>
         </tr>
       </thead>
       <tbody id="myTable">

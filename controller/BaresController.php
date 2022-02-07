@@ -20,6 +20,14 @@
             $rutaAnadir = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";
             require("view/lista-bares.php");
         }
+
+        public function listaBaresPublico(){
+            $lista = $this->db->listaBares();
+
+            $rutaAnadir = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";
+            require("view/bares-publico.php");
+        }
+
         /**
          * muestra el formulario para añadir un bar nuevo
          *
@@ -91,8 +99,43 @@
 
             $rutaEliminar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/eliminar-bar/" . $bar->getCod_bar();
             $rutaModificar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/modificar-bar";
+            
             require("view/ficha-bar.php");
+                      
         }
+
+        public function barPublico($cod_bar){
+            $bar = $this->db->recuperarBar($cod_bar);
+            $aux_fotos = $this->db->recuperarFotosBar($cod_bar);
+            $aux = $this->db->puntuacionBar($cod_bar);
+            $nota = $aux["nota"];
+            $votos = $aux["votos"];
+            $puntuacion = round($nota/$votos, 2);            
+            $estrellaCheck = "<span class='fa fa-star checked'></span>  ";
+            $estrella = "<span class='fa fa-star'></span>  ";
+            
+            $especialidad = $this->db->especialidadBar($cod_bar);
+            $pinchoEspecialidad = $this->db->recuperarPincho($especialidad["pincho"]);
+            $puntosEspecialidad = $especialidad["puntos"];
+            $pinchosDelBar = $this->db->recuperarPinchosDeBar($cod_bar);
+
+            $encodedName = urlencode($bar->getNombre());
+
+            $rutaEspecialidad = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/ficha-pincho/" . $pinchoEspecialidad->getCod_pincho();
+            $fotos = array();
+            $ids = array();
+            for ($i=0; $i < count($aux_fotos); $i++) { 
+                array_push($fotos, $aux_fotos[$i]["ruta"]);
+                array_push($ids, $aux_fotos[$i]["id"]);
+            }
+
+            $rutaEliminar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/eliminar-bar/" . $bar->getCod_bar();
+            $rutaModificar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/modificar-bar";
+            
+            require("view/bar.php");
+                      
+        }
+        
         /**
          * modifica un bar
          *
@@ -133,6 +176,11 @@
          */
         public function listaBaresJson($limit, $num){
             $bares = $this->db->listaBaresJson($limit, $num);
+            /*for ($i=0; $i < count($bares); $i++) { 
+                $codbar = $bares[$i]->getCod_bar();
+                $puntuacion = $this->db->puntuacionBar($codbar);
+                $bares[$i]->setPuntuacion($puntuacion);
+            }*/
             //var_dump($bares);
             echo json_encode($bares);
             //$rutaAnadir = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";

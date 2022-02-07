@@ -7,6 +7,7 @@
         private $longitud;
         private $pinchos;
         private $fotos;
+        private $puntuacion;
 
         function __construct($cod_bar, $nombre, $latitud, $longitud, $pinchos = null)
         {
@@ -17,6 +18,7 @@
             $this->pinchos = $pinchos;
         }
 
+ 
         /**
          * Get the value of cod_bar
          */ 
@@ -133,6 +135,26 @@
         public function setFotos($fotos)
         {
                 $this->fotos = $fotos;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of puntuacion
+         */ 
+        public function getPuntuacion()
+        {
+                return $this->puntuacion;
+        }
+
+        /**
+         * Set the value of puntuacion
+         *
+         * @return  self
+         */ 
+        public function setPuntuacion($puntuacion)
+        {
+                $this->puntuacion = $puntuacion;
 
                 return $this;
         }

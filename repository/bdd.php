@@ -750,4 +750,62 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
+
+    public function puntuacionBar($bar){
+        try{
+            $sql = "select count(*) as votos, sum(nota) as nota from pinchos join likes_pincho on (cod_pincho = pincho) where bar=:bar group by bar;";
+            
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("bar" => $bar));
+            $bares = array();
+            foreach ($stmt as $bar) {
+                $aux = array(
+                    "nota" => $bar["nota"],
+                    "votos" => $bar["votos"]
+                );
+                array_push($bares, $aux);
+            }
+            return $bares[0];
+
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function especialidadBar($bar){
+        try{
+            $sql = "select pincho, sum(nota) as puntos from pinchos join likes_pincho on (cod_pincho = pincho) where bar=:bar group by pincho order by puntos desc;";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("bar" => $bar));
+            $bares = array();
+            foreach ($stmt as $bar) {
+                $aux = array(
+                    "puntos" => $bar["puntos"],
+                    "pincho" => $bar["pincho"]
+                );
+                array_push($bares, $aux);
+            }
+
+            return $bares[0];
+
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function recuperarPinchosDeBar($bar){
+        try{
+            $sql = "select * from pinchos where bar=:bar;";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("bar" => $bar));
+            $pinchos = array();
+            foreach ($stmt as $bar) {
+                $pincho = new Pincho($bar["cod_pincho"], $bar["nombre"], $bar["descripcion"], $bar["precio"], $bar["bar"]);
+                array_push($pinchos, $pincho);
+            }
+            return $pinchos;
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
 }

@@ -34,6 +34,31 @@
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
       </select><br>
+
+      <div id="columnasAMostrar">
+        <span>Columnas a mostrar</span>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colIdPincho" checked onchange="ocultarColumna('colIdPincho')">
+          <label class="form-check-label" for="colIdBar">ID</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colNombrePincho" checked onchange="ocultarColumna('colNombrePincho')">
+          <label class="form-check-label" for="colNombreBar">Nombre</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colDescripcionPincho" checked onchange="ocultarColumna('colDescripcionPincho')">
+          <label class="form-check-label" for="colDescripcionPincho">Descripcion</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colPrecioPincho" checked onchange="ocultarColumna('colPrecioPincho')">
+          <label class="form-check-label" for="colPrecioPincho">Precio</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="colBarPincho" checked onchange="ocultarColumna('colBarPincho')">
+          <label class="form-check-label" for="colBarPincho">Bar</label>
+        </div>
+      </div>
+      <br>
       <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nuevo pincho</button></a>
       <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
     </div>
@@ -41,11 +66,11 @@
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col" onclick="ordenarID()">ID</th>
-          <th scope="col" onclick="ordenarNombre()">Nombre</th>
-          <th scope="col" onclick="ordenarDescripcion()">Descripcion</th>
-          <th scope="col" onclick="ordenarPrecio()">Precio</th>
-          <th scope="col" onclick="ordenarBar()">Bar</th>
+          <th scope="col" onclick="ordenarID()" class="idpincho">ID</th>
+          <th scope="col" onclick="ordenarNombre()" class="nombrepincho">Nombre</th>
+          <th scope="col" onclick="ordenarDescripcion()" class="descripcionpincho">Descripcion</th>
+          <th scope="col" onclick="ordenarPrecio()" class="preciopincho">Precio</th>
+          <th scope="col" onclick="ordenarBar()" class="barpincho">Bar</th>
         </tr>
       </thead>
       <tbody id="myTable">

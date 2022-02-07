@@ -98,6 +98,11 @@
         $barescontroller->eliminarFotoBar($array_ruta[1]);
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "cerrar-sesion"){
         $homecontroller->cerrarSesion();
+// PARTE PUBLICA
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "bares"){
+        $barescontroller->listaBaresPublico();
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "bar"){
+        $barescontroller->barPublico($array_ruta[1]);
     }else{   
         $homecontroller->renderizarHome();
     }

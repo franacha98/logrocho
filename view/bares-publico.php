@@ -13,7 +13,7 @@
 <body>
   <!-- Vertical navbar -->
   <?php
-  include "menu-admin.php";
+  include "menu-publico.php";
   ?>
   <!-- End vertical navbar -->
 
@@ -22,40 +22,19 @@
     <!-- Toggle button -->
     <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i></button>
 
-    <h1>Panel de administración - Listado de bares</h1>
+    <h1>Logrocho - Lista de bares</h1>
 
     <!-- End demo content -->
     <input class="form-control" id="buscador" type="text" placeholder="Buscar...">
     <br>
     <div id="filtros">
+      
       <label for="paginacion">Configurar páginación:</label>
       <select id="paginacion" name="paginacion" class="form-select" aria-label="Default select example" onchange="pintarTablaBares()">
         <option selected value="3">Tres en tres</option>
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
       </select><br>
-      
-
-      <div id="columnasAMostrar">
-        <span>Columnas a mostrar</span>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="colIdBar" checked onchange="ocultarColumna('colIdBar')">
-          <label class="form-check-label" for="colIdBar">ID</label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="colNombreBar" checked onchange="ocultarColumna('colNombreBar')">
-          <label class="form-check-label" for="colNombreBar">Nombre</label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="colLatitudBar" checked onchange="ocultarColumna('colLatitudBar')">
-          <label class="form-check-label" for="colLatitudBar">Latitud</label>
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="colLongitudBar" checked onchange="ocultarColumna('colLongitudBar')">
-          <label class="form-check-label" for="colLongitudBar">Longitud</label>
-        </div>
-      </div>
-      <br>
       <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nuevo bar</button></a>
       <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
     </div>
@@ -64,10 +43,9 @@
       <thead>
         <tr>
           <th scope="col"></th>
-          <th scope="col" onclick="ordenarID()" class="idbar">ID</th>
-          <th scope="col" onclick="ordenarNombre()" class="nombrebar">Nombre</th>
-          <th scope="col" onclick="ordenarLatitud()" class="latitudbar">Latitud</th>
-          <th scope="col" onclick="ordenarLongitud()" class="longitudbar">Longitud</th>
+          <th scope="col" onclick="ordenarNombre()">Nombre</th>
+          <th scope="col" onclick="ordenarLatitud()">Localización</th>
+          <th scope="col" onclick="ordenarLongitud()">Puntuación</th>
         </tr>
       </thead>
       <tbody id="myTable">
@@ -130,7 +108,7 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + bares[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + "</td><td onclick='irAFicha(this)'>" + bares[i].longitud + "</td></tr>");
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
       }
     }
 
@@ -169,7 +147,7 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + bares[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + "</td><td onclick='irAFicha(this)'>" + bares[i].longitud + "</td></tr>");
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
       }
     }
 
@@ -208,7 +186,7 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + bares[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + "</td><td onclick='irAFicha(this)'>" + bares[i].longitud + "</td></tr>");
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
       }
     }
 
@@ -247,7 +225,8 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + bares[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + "</td><td onclick='irAFicha(this)'>" + bares[i].longitud + "</td></tr>");
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+ 
       }
     }
 
@@ -264,8 +243,7 @@
           //TABLA
           tabla.html("");
           for (let i = 0; i < response.length; i++) {
-            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
-
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
           }
           //tabla.append(tbody);
          
@@ -288,7 +266,7 @@
             tabla.html("");
             
             for (let i = 0; i < response.length; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");
+                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
                 
             }
           } else {
@@ -317,7 +295,7 @@
           tabla.html("");
           $("#btSiguiente").prop("disabled", false);
           for (let i = 0; i < response.length; i++) {
-              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'>" + response[i].cod_bar + "</td><td onclick='irAFicha(this)'>" + response[i].nombre + "</td><td onclick='irAFicha(this)'>" + response[i].latitud + "</td><td onclick='irAFicha(this)'>" + response[i].longitud + "</td></tr>");             
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
           }
         }
       });
