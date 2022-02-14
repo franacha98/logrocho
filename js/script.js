@@ -92,6 +92,7 @@ function eliminarImgPincho(elemento) {
   });
 }
 
+
 function ocultarColumna(columna) {
   switch (columna) {
     //lista bares

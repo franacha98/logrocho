@@ -37,7 +37,7 @@
             //echo $countfiles;
             $fotos_bar = array();
             $rutaBase = file_get_contents("config.txt");
-            echo $rutaBase;
+            
             $rutaFotos = $rutaBase . "\\img_pinchos\\" . $cod_pincho;
             for($i=0;$i<$countfiles;$i++){
                 $filename = $_FILES['file']['name'][$i];               
@@ -49,7 +49,8 @@
             }
             $this->db->anadirFotosPincho($cod_pincho, $fotos_bar);
 
-            header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista");
+            echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista";
+            //header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista");
         }
         /**
          * muestra el formulario para añadir un nuevo pincho

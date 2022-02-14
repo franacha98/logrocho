@@ -24,22 +24,26 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-                        <form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirPincho; ?>">
+                        <!--<form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirPincho; ?>">-->
+                        <form method="POST" enctype="multipart/form-data" onsubmit="anadirPincho(event)">
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Introduce el nombre del pincho">
+                                <input required onblur="comprobarNombre()" type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Introduce el nombre del pincho">
+                                <span id="errorNombre" style="display:none; color: red;">Error</span>
                             </div>
                             <div class="form-group">
                                 <label for="descripcion">Descripcion</label>
-                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion del pincho">
+                                <input required onblur="comprobarDesc()" type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion del pincho">
+                                <span id="errorDesc" style="display:none; color: red;">Error</span>
                             </div>
                             <div class="form-group">
                                 <label for="precio">Precio</label>
-                                <input type="text" class="form-control" id="precio" name="precio" placeholder="Precio de cada pincho">
+                                <input required onblur="comprobarPrecio()" type="text" class="form-control" id="precio" name="precio" placeholder="Precio de cada pincho">
+                                <span id="errorPrecio" style="display:none; color: red;">Error</span>
                             </div><br>
                             <div class="form-group">
                                 <label for="bar">Bar</label>
-                                <select name="bar">
+                                <select name="bar" id="bar">
                                     <?php
                                     for ($i = 0; $i < count($bares); $i++) {
                                         echo "<option value='" . $bares[$i]->getCod_bar() . "'>" . $bares[$i]->getCod_bar() . " - " . $bares[$i]->getNombre() . "</option>";
@@ -50,23 +54,108 @@
                             <div class="form-group">
                                 <label for="file">Seleccione imágenes: </label>
                                 <input type="file" class="form-control-file" id="file" name="file[]" multiple>
+                                <input type="hidden" id="rutaAnadir" value="<?php echo $rutaAnadirPincho; ?>" >
                             </div>
                             <br>
-                            <button type="submit" class="btn btn-dark" type="button">Guardar</button>
+                            <button id="btAnadirPincho" type="submit" class="btn btn-dark" type="button" disabled>Guardar</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-
-
-
-
-
-
         <script src="../js/jquery-3.6.0.min.js"></script>
         <script src="../js/script.js"></script>
+        <script>
+            let flagNombre = false;
+            let flagDesc = false;
+            let flagPrecio = false;
+
+            function comprobarNombre() {
+                let nombre = $("#nombre").val();
+                let regexp = /^[A-Za-zÁÉÍÓÚáéíóú\s]+$/;
+                if (nombre == "" || !regexp.test(nombre)) {
+                    flagNombre = false;
+                    deshabilitarBoton();
+                    $("#errorNombre").css("display", "block");
+                    $("#nombre").css("border-color", "red");
+                } else {
+                    flagNombre = true;
+                    habilitarBoton();
+                    $("#errorNombre").css("display", "none");
+                    $("#nombre").css("border-color", "green");
+                }
+            }
+
+            function comprobarDesc() {
+                let regexp = /^[A-Za-zÁÉÍÓÚáéíóú0-9\s]+$/;
+                let desc = $("#descripcion").val();
+                if (desc == "" || !regexp.test(desc)) {
+                    flagDesc = false;
+                    deshabilitarBoton();
+                    $("#errorDesc").css("display", "block");
+                    $("#descripcion").css("border-color", "red");
+                } else {
+                    flagDesc = true;
+                    habilitarBoton();
+                    $("#errorDesc").css("display", "none");
+                    $("#descripcion").css("border-color", "green");
+                }
+
+            }
+
+            function comprobarPrecio() {
+                let regexp = /^\d*\.?\d*$/;
+                let precio = $("#precio").val();
+                if (precio == "" || !regexp.test(precio)) {
+                    flagPrecio = false;
+                    deshabilitarBoton();
+                    $("#errorPrecio").css("display", "block");
+                    $("#precio").css("border-color", "red");
+                } else {
+                    flagPrecio = true;
+                    habilitarBoton();
+                    $("#errorPrecio").css("display", "none");
+                    $("#precio").css("border-color", "green");
+                }
+
+            }
+
+            function habilitarBoton() {
+                if (flagNombre && flagPrecio && flagDesc) {
+                    $("#btAnadirPincho").prop('disabled', false);
+                }
+
+            }
+
+            function deshabilitarBoton() {
+                $("#btAnadirPincho").prop('disabled', true);
+            }
+
+            function anadirPincho(event) {                              
+                let nombre = $("#nombre").val();
+                let descripcion = $("#descripcion").val();
+                let precio = $("#precio").val();
+                let bar = $("#bar").val();
+                let ruta = $("#rutaAnadir").val();
+                let file = $("#file")[0].files;
+                var dataPost = {
+                    "nombre": nombre,
+                    "descripcion": descripcion,
+                    "precio": precio,
+                    "bar" : bar
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: ruta,
+                    data: dataPost,
+                    success: function(response){
+                       let h = response;
+                    }                   
+                });
+            }
+        </script>
 </body>
 
 </html>

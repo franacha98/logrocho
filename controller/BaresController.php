@@ -65,6 +65,9 @@
                 move_uploaded_file($_FILES['file']['tmp_name'][$i], $rutaFotos."\\".$filename);                
             }
             $this->db->anadirFotosBar($cod_bar, $fotos_bar);
+
+            echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";
+            
             header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista");
         }
 
