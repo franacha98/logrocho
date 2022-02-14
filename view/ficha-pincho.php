@@ -42,8 +42,8 @@
           </div>
           <div class="details col-md-6">
             <h3 class="product-title"><?php echo $pincho->getNombre(); ?></h3>
-            <!--<form method="POST" enctype="multipart/form-data" action="<?php echo $rutaModificar ?>">-->
-            <form method="POST" enctype="multipart/form-data" onsubmit="modificarPincho()">
+            <form method="POST" enctype="multipart/form-data" action="<?php echo $rutaModificar ?>">
+            <!--<form method="POST" enctype="multipart/form-data" onsubmit="modificarPincho()">-->
               <input type="hidden" name="cod_pincho" id="cod_pincho" value="<?php echo $pincho->getCod_pincho(); ?>" />
               <div>
                 <span class="review-no">Nombre</span>

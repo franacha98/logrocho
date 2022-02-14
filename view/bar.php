@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Logrocho - Administración</title>
+    <title>Logrocho - <?php echo $bar->getNombre(); ?></title>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -58,9 +58,9 @@
                             } else if ($puntuacion > 1 && $puntuacion < 2) {
                                 echo $estrellaCheck . $estrella . $estrella . $estrella . $estrella;
                             } else if ($puntuacion > 0 && $puntuacion < 1) {
-                                echo $estrella . $estrella . $estrellaCheck . $estrella . $estrella;
+                                echo $estrella . $estrella . $estrella . $estrella . $estrella;
                             } else if ($puntuacion >= 5) {
-                                echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrella . $estrellaCheck;
+                                echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck;
                             }
                             ?>
                             <span><?php echo $puntuacion . "/5"; ?></span><br>
@@ -94,7 +94,7 @@
                         <tbody id="myTable">
                             <?php
                             for ($i = 0; $i < count($pinchosDelBar); $i++) {
-                                echo "<tr><th scope='row'></th><td onclick='irAFichaDesdeOtraFicha(this)'><input type='hidden' value='" . $pinchosDelBar[$i]->getCod_pincho() . "' />" . $pinchosDelBar[$i]->getNombre() . "</td><td onclick='irAFicha(this)'>" . $pinchosDelBar[$i]->getDescripcion() . "</td><td onclick='irAFicha(this)'>" . $pinchosDelBar[$i]->getPrecio() . "€</td></tr>";
+                                echo "<tr><th scope='row'></th><td onclick='irAFichaDesdeOtraFicha(this)'><input type='hidden' value='" . $pinchosDelBar[$i]->getCod_pincho() . "' />" . $pinchosDelBar[$i]->getNombre() . "</td><td onclick='irAFichaDesdeOtraFicha(this)'>" . $pinchosDelBar[$i]->getDescripcion() . "</td><td onclick='irAFichaDesdeOtraFicha(this)'>" . $pinchosDelBar[$i]->getPrecio() . "€</td></tr>";
                             }
                             ?>
                         </tbody>

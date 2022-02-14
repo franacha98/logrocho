@@ -1,13 +1,14 @@
 <?php
     class Bar{
 
-        private $cod_bar;
-        private $nombre;
-        private $latitud;
-        private $longitud;
-        private $pinchos;
-        private $fotos;
-        private $puntuacion;
+        public $cod_bar;
+        public $nombre;
+        public $latitud;
+        public $longitud;
+        public $pinchos;
+        public $fotos;
+        public $puntuacion;
+        public $especialidad;
 
         function __construct($cod_bar, $nombre, $latitud, $longitud, $pinchos = null)
         {
@@ -157,6 +158,18 @@
                 $this->puntuacion = $puntuacion;
 
                 return $this;
+        }
+
+        public function setEspecialidad($especialidad)
+        {
+                $this->especialidad = $especialidad;
+
+                return $this;
+        }
+
+        public function getEspecialidad()
+        {
+                return $this->especialidad;
         }
     }
 ?>

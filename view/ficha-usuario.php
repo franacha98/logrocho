@@ -25,7 +25,6 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-
                         <div class="preview-pic tab-content">
                             <div class="tab-pane active" id="pic-1" style="width: 70%;"><img src="../../resources/media/foto_perfil.png" /></div>
                         </div>

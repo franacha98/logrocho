@@ -49,23 +49,23 @@
         </a>
       </li>
       <li class="nav-item" <?php echo ($auxpincho==true) ? "style='background-color: #40A980'" : "" ?>>
-        <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-pinchos";?>" class="nav-link text-dark font-italic">
+        <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/pinchos";?>" class="nav-link text-dark font-italic">
           <i class="fa fa-cutlery mr-3 fa-fw" <?php echo ($auxpincho==true) ? "style='color: white'" : "" ?>></i>
           <span <?php echo ($auxpincho==true) ? "style='color: white'" : "" ?>>Pinchos</span>
         </a>
       </li>
-      <li class="nav-item" <?php echo ($auxresena==true) ? "style='background-color: #40A980'" : "" ?>>
-        <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-resenas";?>" class="nav-link text-dark font-italic">
-          <i class="fa fa-comments mr-3 fa-fw" <?php echo ($auxresena==true) ? "style='color: white'" : "" ?>></i>
-          <span <?php echo ($auxresena==true) ? "style='color: white'" : "" ?>>Reseñas</span>
-        </a>
-      </li>
       <li class="nav-item" <?php echo ($auxusuario==true) ? "style='background-color: #40A980'" : "" ?>>
-        <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-usuarios";?>" class="nav-link text-dark font-italic">
+        <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/zona-usuario/0";?>" class="nav-link text-dark font-italic">
           <i class="fa fa-user mr-3 fa-fw" <?php echo ($auxusuario==true) ? "style='color: white'" : "" ?>></i>
-          <span <?php echo ($auxusuario==true) ? "style='color: white'" : "" ?>>Usuarios</span>
+          <span <?php echo ($auxusuario==true) ? "style='color: white'" : "" ?>>Perfil de usuario</span>
         </a>
       </li>
+      <li class="nav-item" <?php echo ($auxcontacto==true) ? "style='background-color: #40A980'" : "" ?>>
+        <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/contacto";?>" class="nav-link text-dark font-italic">
+          <i class="fa fa-envelope mr-3 fa-fw" <?php echo ($auxcontacto==true) ? "style='color: white'" : "" ?>></i>
+          <span <?php echo ($auxcontacto==true) ? "style='color: white'" : "" ?>>Contacto</span>
+        </a>
+      </li> 
     </ul>
     <div id="cerrarSesion">
       <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/cerrar-sesion";?>" class="nav-link text-dark font-italic">

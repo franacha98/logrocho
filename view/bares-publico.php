@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Logrocho - Administración</title>
+  <title>Logrocho - Bares</title>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -22,7 +22,7 @@
     <!-- Toggle button -->
     <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i></button>
 
-    <h1>Logrocho - Lista de bares</h1>
+    <h1>Lista de bares</h1>
 
     <!-- End demo content -->
     <input class="form-control" id="buscador" type="text" placeholder="Buscar...">
@@ -35,8 +35,6 @@
         <option value="5">Cinco en cinco</option>
         <option value="20">Todo</option>
       </select><br>
-      <a href="<?php echo $rutaAnadir; ?>"><button class="btn btn-dark">Añadir nuevo bar</button></a>
-      <button id="btnEliminar" class="btn btn-danger">Eliminar seleccionados</button><br><br>
     </div>
     
     <table class="table table-hover table-bordered">
@@ -44,7 +42,7 @@
         <tr>
           <th scope="col"></th>
           <th scope="col" onclick="ordenarNombre()">Nombre</th>
-          <th scope="col" onclick="ordenarLatitud()">Localización</th>
+          <th scope="col" onclick="ordenarLatitud()">Especialidad</th>
           <th scope="col" onclick="ordenarLongitud()">Puntuación</th>
         </tr>
       </thead>
@@ -108,7 +106,7 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>"+bares[i].especialidad+"</td><td onclick='irAFicha(this)'>" + bares[i].puntuacion + "</td></tr>");    
       }
     }
 
@@ -147,7 +145,7 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>"+bares[i].especialidad+"</td><td onclick='irAFicha(this)'>" + bares[i].puntuacion + "</td></tr>");   
       }
     }
 
@@ -186,7 +184,7 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>"+bares[i].especialidad+"</td><td onclick='irAFicha(this)'>" + bares[i].puntuacion + "</td></tr>");  
       }
     }
 
@@ -225,7 +223,7 @@
 
       tabla.html("");
       for (let i = 0; i < numero; i++) {
-        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+        tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>"+bares[i].especialidad+"</td><td onclick='irAFicha(this)'>" + bares[i].puntuacion + "</td></tr>");    
  
       }
     }
@@ -243,7 +241,7 @@
           //TABLA
           tabla.html("");
           for (let i = 0; i < response.length; i++) {
-            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+response[i].cod_bar+"' />" + response[i].nombre + "</td><td onclick='irAFicha(this)'>"+response[i].especialidad+"</td><td onclick='irAFicha(this)'>" + response[i].puntuacion + "</td></tr>");     
           }
           //tabla.append(tbody);
          
@@ -266,7 +264,7 @@
             tabla.html("");
             
             for (let i = 0; i < response.length; i++) {
-                tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+              tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+response[i].cod_bar+"' />" + response[i].nombre + "</td><td onclick='irAFicha(this)'>"+response[i].especialidad+"</td><td onclick='irAFicha(this)'>" + response[i].puntuacion + "</td></tr>");      
                 
             }
           } else {
@@ -295,7 +293,7 @@
           tabla.html("");
           $("#btSiguiente").prop("disabled", false);
           for (let i = 0; i < response.length; i++) {
-            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+bares[i].cod_bar+"' />" + bares[i].nombre + "</td><td onclick='irAFicha(this)'>" + bares[i].latitud + ", "+ bares[i].longitud +"</td><td onclick='irAFicha(this)'>" + 0 + "</td></tr>");    
+            tabla.append("<tr><th scope='row'><input type='checkbox' class='checkbox-list'></th><td onclick='irAFicha(this)'><input type='hidden' value='"+response[i].cod_bar+"' />" + response[i].nombre + "</td><td onclick='irAFicha(this)'>"+response[i].especialidad+"</td><td onclick='irAFicha(this)'>" + response[i].puntuacion + "</td></tr>");      
           }
         }
       });

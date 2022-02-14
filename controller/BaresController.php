@@ -124,7 +124,7 @@
 
             $encodedName = urlencode($bar->getNombre());
 
-            $rutaEspecialidad = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/ficha-pincho/" . $pinchoEspecialidad->getCod_pincho();
+            $rutaEspecialidad = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/pincho/" . $pinchoEspecialidad->getCod_pincho();
             $fotos = array();
             $ids = array();
             for ($i=0; $i < count($aux_fotos); $i++) { 
@@ -179,15 +179,34 @@
          */
         public function listaBaresJson($limit, $num){
             $bares = $this->db->listaBaresJson($limit, $num);
-            /*for ($i=0; $i < count($bares); $i++) { 
-                $codbar = $bares[$i]->getCod_bar();
-                $puntuacion = $this->db->puntuacionBar($codbar);
-                $bares[$i]->setPuntuacion($puntuacion);
-            }*/
+            
+            $arraybares = array();
+            for ($i=0; $i < count($bares); $i++) { 
+                $codbar = $bares[$i]["cod_bar"];
+                
+                $puntuacion = $this->db->puntuacionBar($codbar)["nota"];
+                
+
+                $bar = new Bar($codbar, $bares[$i]["nombre"], $bares[$i]["latitud"], $bares[$i]["longitud"]);
+                if($puntuacion == null){
+                    $puntuacion = 0;
+                }
+                $bar->setPuntuacion($puntuacion);
+
+                $especialidadCode = $this->db->especialidadBar($codbar)["pincho"];
+                $especialidad = $this->db->recuperarNombrePincho($especialidadCode);
+                if($especialidad == null){
+                    $especialidad = "No tiene";
+                }                
+                $bar->setEspecialidad($especialidad);
+                
+                array_push($arraybares, $bar);
+                //$bares[$i]->setPuntuacion($puntuacion);
+                //$bares[$i]->setEspecialidad($this->db->especialidadBar($codbar));
+            }
             //var_dump($bares);
-            echo json_encode($bares);
-            //$rutaAnadir = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";
-            //require("view/lista-bares.php");
+            echo json_encode($arraybares);
+
         }
         /**
          * informacion de un bar en formato json

@@ -21,12 +21,40 @@
             $aux = str_replace("index.php/", "",$_SERVER["REQUEST_URI"]);
             $rutaLogin = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/check-login";
             $rutaOlvidada = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/contrasena-olvidada";
+            $rutaRegistro = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/registro";
             require("view/index.php");
+        }
+
+        public function registro(){
+            $rutaRegistro = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/controlar-registro";
+
+            require("view/formulario-registro.php");
+        }
+
+        public function controlRegistro(){
+            $usuario = $_POST["usuario"];
+            $pass = $_POST["pass"];
+            $nombre = $_POST["nombre"];
+
+            $registroOK = $this->db->registrarUsuario($nombre, $usuario, $pass);
+            $ruta = "";
+
+            if($registroOK){
+                $_SESSION["usuario"] = $nombre;
+                $_SESSION["idusuario"] = $usuario;
+                $_SESSION["admin"] = "NO";
+                $ruta = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/inicio";               
+            }else{
+                $ruta = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/registro";  
+            }  
+
+            header("Location: $ruta");
         }
 
         public function cerrarSesion(){
             unset($_SESSION["admin"]);
             unset($_SESSION["usuario"]);
+            unset($_SESSION["idusuario"]);
             session_destroy();
 
             $ruta = "http://" . $_SERVER["HTTP_HOST"]."/logrocho/index.php";
@@ -63,6 +91,7 @@
                 $nombre = $this->db->nombreUsuario($username);
                 $esAdmin = $this->db->esAdmin($username);
                 $_SESSION["usuario"] = $nombre;
+                $_SESSION["idusuario"] = $username;
                 $ruta = "";
                 if($esAdmin == 1){
                     $_SESSION["admin"] = "YES";
@@ -71,8 +100,7 @@
                     $_SESSION["admin"] = "NO";
                     $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/inicio";
                 }
-                
-                //$ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/panel-administracion";
+
                 echo $ruta;
 
                 header("Location: $ruta");
@@ -81,6 +109,8 @@
                 header("Location: $ruta");
             }
         }
+
+
         /**
          * lleva al panel de administracion
          *

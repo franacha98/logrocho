@@ -24,8 +24,8 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-                    <!--<form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirBar;?>">-->
-                        <form method="POST" enctype="multipart/form-data" onsubmit="anadirBar(event)">
+                    <form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirBar;?>">
+                        <!--<form method="POST" enctype="multipart/form-data" onsubmit="anadirBar(event)">-->
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input required type="text" onblur="comprobarNombreBar()" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Introduce el nombre del bar">

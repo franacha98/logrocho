@@ -31,8 +31,11 @@ function irAFicha(element) {
         "ficha-bar/" + element.parentElement.children[1].innerText;
       break;
     case "bares":
-      location.href = "bar/" + element.children[0].value;
+      location.href = "bar/" + element.parentElement.childNodes[1].children[0].value;
       break;
+    case "pinchos":
+        location.href = "pincho/" + element.parentElement.childNodes[1].children[0].value;
+        break;
     case "lista-pinchos":
       location.href =
         "ficha-pincho/" + element.parentElement.children[1].innerText;
@@ -45,12 +48,19 @@ function irAFicha(element) {
 }
 
 function irAFichaDesdeOtraFicha(element) {
+  let auxUrl = "";
   let aux = location.href.split("/").length;
   let page = location.href.split("/")[aux - 2];
+  let ultimo = location.href.lastIndexOf("/");
+  let auxUlt = location.href.substring(0,ultimo+1);
   switch (page) {
     case "bar":
-      let auxUrl = location.href.replace("bar/", "ficha-pincho/");
-      location.href = auxUrl;
+      auxUrl = auxUlt.replace("bar/", "pincho/");
+      location.href = auxUrl + element.parentElement.childNodes[1].children[0].value;
+      break;
+    case "zona-usuario":
+      auxUrl = auxUlt.replace("zona-usuario/", "pincho/");
+      location.href = auxUrl + element.parentElement.childNodes[1].children[0].value;
       break;
   }
 }

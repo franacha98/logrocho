@@ -160,7 +160,46 @@
             }else{
                 echo "KO";
             }
-        }   
+        }  
+        
+        public function listaPinchosPublico(){
+            $lista = $this->db->listaPinchos();
+
+            require("view/pinchos-publico.php");
+        }
+
+        public function pinchoPublico($cod_pincho){
+            $bares = $this->db->listaBares();
+            $pincho = $this->db->recuperarPincho($cod_pincho);
+
+            $aux_fotos = $this->db->recuperarFotosPincho($cod_pincho);
+               
+            $fotos = array();
+            $ids = array();
+            for ($i=0; $i < count($aux_fotos); $i++) { 
+                array_push($fotos, $aux_fotos[$i]["ruta"]);
+                array_push($ids, $aux_fotos[$i]["id"]);
+            }
+
+            $aux = $this->db->puntuacionPincho($cod_pincho);
+            $nota = $aux["puntuacion"];
+            $votos = $aux["votos"];
+            $puntuacion = round($nota/$votos, 2);  
+            $estrellaCheck = "<span class='fa fa-star checked'></span>  ";
+            $estrella = "<span class='fa fa-star'></span>  ";
+
+            $bar = $this->db->recuperarBar($pincho->getBar());
+            $rutaBar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/bar/" . $pincho->getBar();
+
+            $resenas = $this->db->resenasDePincho($cod_pincho);
+
+            for ($i=0; $i < count($resenas); $i++) { 
+                $nombre = $this->db->nombreUsuario($resenas[$i]->getUsuario());
+                $resenas[$i]->setUsuario($nombre);
+            }
+            require("view/pincho.php");
+        }
     }
+
 
 ?>

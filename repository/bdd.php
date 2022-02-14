@@ -320,6 +320,24 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
+
+    public function recuperarNombrePincho($cod_pincho)
+    {
+        try {
+            $sql = "SELECT nombre FROM pinchos WHERE cod_pincho=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $cod_pincho));
+            $pinchos = array();
+            foreach ($stmt as $bar) {
+                $aux = $bar["nombre"];
+                array_push($pinchos, $aux);
+            }
+            return $pinchos[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
     /**
      * Recupera una reseña con un id dado
      *
@@ -338,6 +356,23 @@ class BBDD
                 array_push($valoraciones, $aux);
             }
             return $valoraciones[0];
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function resenasDePincho($cod_pincho)
+    {
+        try {
+            $sql = "SELECT * FROM valoraciones WHERE pincho=:cod;";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("cod" => $cod_pincho));
+            $valoraciones = array();
+            foreach ($stmt as $bar) {
+                $aux = new Resena($bar["cod_valoracion"], $bar["usuario"], $bar["pincho"], $bar["comentario"], $bar["likes"]);
+                array_push($valoraciones, $aux);
+            }
+            return $valoraciones;
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
         }
@@ -381,6 +416,30 @@ class BBDD
             $this->conexion->beginTransaction();
 
             $sql = "INSERT INTO usuarios (usuario, contrasena, admin, nombre) VALUES ('$usuario', '$contrasena', '$admin', '$nombre')";
+            echo $sql;
+            $resultado = $this->conexion->query($sql);
+
+            if (!$resultado) {
+                echo print_r($this->conexion->errorInfo());
+                $this->conexion->rollBack();
+                return false;
+            }
+
+
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function registrarUsuario($nombre, $usuario, $contrasena)
+    {
+        try {
+
+            $this->conexion->beginTransaction();
+
+            $sql = "INSERT INTO usuarios (usuario, contrasena, admin, nombre) VALUES ('$usuario', '$contrasena', '0', '$nombre')";
             echo $sql;
             $resultado = $this->conexion->query($sql);
 
@@ -772,6 +831,27 @@ class BBDD
         }
     }
 
+    public function puntuacionPincho($cod_pincho)
+    {
+        try{
+            $sql = "SELECT SUM(nota) as puntuacion, COUNT(*) as votos FROM likes_pincho where pincho = :pincho";
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("pincho" => $cod_pincho));
+            $bares = array();
+            foreach ($stmt as $bar) {
+                $aux = array(
+                    "puntuacion" => $bar["puntuacion"],
+                    "votos" => $bar["votos"]
+                );
+                array_push($bares, $aux);
+            }
+            return $bares[0];
+
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
     public function especialidadBar($bar){
         try{
             $sql = "select pincho, sum(nota) as puntos from pinchos join likes_pincho on (cod_pincho = pincho) where bar=:bar group by pincho order by puntos desc;";     
@@ -808,4 +888,35 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
+
+    public function recuperarPinchosValoradosDeUsuario($usuario){
+        try{
+            $sql = "select * from likes_pincho join pinchos on (pincho=cod_pincho) where usuario=:usuario;";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("usuario" => $usuario));
+            $pinchos = array();
+            foreach ($stmt as $bar) {     
+                array_push($pinchos, $bar);
+            }
+            return $pinchos;
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function recuperarResenasDeUsuario($usuario){
+        try{
+            $sql = "SELECT * FROM valoraciones join pinchos on (pincho=cod_pincho) where usuario=:usuario";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("usuario" => $usuario));
+            $resenas = array();
+            foreach ($stmt as $bar) {     
+                array_push($resenas, $bar);
+            }
+            return $resenas;
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
 }
+

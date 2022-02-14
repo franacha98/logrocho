@@ -103,6 +103,36 @@
 
             header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-usuarios");
         }
+
+
+        public function zonaUsuario($flag){
+            $modificando = false;
+
+            if($flag == "1"){
+                $modificando = true;
+            }
+
+            $nombre = $_SESSION["usuario"];
+            $username = $_SESSION["idusuario"];
+            $usuario = $this->db->recuperarUsuario($username);
+            $rutaModificar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/zona-usuario/1";
+
+            $pinchos = $this->db->recuperarPinchosValoradosDeUsuario($username);
+            $resenas = $this->db->recuperarResenasDeUsuario($username);
+                // me quedo aqui
+                
+            $rutaEliminar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/eliminar-resena/";
+            $rutaPincho = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/pincho/";
+            if($modificando){
+                require("view/zona-usuario-modificar.php");
+            }else{
+                require("view/zona-usuario.php");
+            }
+            
+        }
+
+        
+
     }
 
 ?>

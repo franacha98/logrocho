@@ -41,8 +41,8 @@
           </div>
           <div class="details col-md-6">
             <h3 class="product-title"><?php echo $bar->getNombre(); ?></h3>
-            <!--<form method="POST" enctype="multipart/form-data" action="<?php echo $rutaModificar ?>">-->
-            <form method="POST" enctype="multipart/form-data" onsubmit="modificarBar(event)">
+            <form method="POST" enctype="multipart/form-data" action="<?php echo $rutaModificar ?>">
+            <!--<form method="POST" enctype="multipart/form-data" onsubmit="modificarBar(event)">-->
               <div>
                 <span class="review-no">Nombre</span>
                 <i class="fa fa-pencil mr-3 fa-fw"></i>

@@ -24,8 +24,8 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-                        <!--<form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirPincho; ?>">-->
-                        <form method="POST" enctype="multipart/form-data" onsubmit="anadirPincho(event)">
+                        <form method="POST" enctype="multipart/form-data" action="<?php echo $rutaAnadirPincho; ?>">
+                        <!--<form method="POST" enctype="multipart/form-data" onsubmit="anadirPincho(event)">-->
                             <div class="form-group">
                                 <label for="nombre">Nombre</label>
                                 <input required onblur="comprobarNombre()" type="text" class="form-control" id="nombre" name="nombre" aria-describedby="nombre" placeholder="Introduce el nombre del pincho">

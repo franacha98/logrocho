@@ -103,6 +103,16 @@
         $barescontroller->listaBaresPublico();
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "bar"){
         $barescontroller->barPublico($array_ruta[1]);
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "pinchos"){
+        $pinchoscontroller->listaPinchosPublico();
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "pincho"){
+        $pinchoscontroller->pinchoPublico($array_ruta[1]);
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "zona-usuario"){
+        $usuarioscontroller->zonaUsuario($array_ruta[1]);
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "registro"){
+        $homecontroller->registro();
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "controlar-registro"){
+        $homecontroller->controlRegistro();
     }else{   
         $homecontroller->renderizarHome();
     }
