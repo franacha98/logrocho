@@ -115,6 +115,8 @@
         $homecontroller->controlRegistro();
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "contacto"){
         $homecontroller->renderizarContacto();
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "mapa"){
+        $homecontroller->mapa();
     }else{   
         $homecontroller->renderizarHome();
     }

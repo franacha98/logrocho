@@ -3,3 +3,4 @@ Olvido su contraseña
 Implementar funcionamiento contacto
 Likes a reseñas
 Codificar contraseñas
+Pagina de mapa

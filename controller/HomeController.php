@@ -138,6 +138,11 @@
 
             require("view/contacto.php");
         }
+
+        public function mapa(){
+
+            require("view/mapa.php");
+        }
     }
 
 ?>
