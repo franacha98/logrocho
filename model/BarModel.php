@@ -9,6 +9,7 @@
         public $fotos;
         public $puntuacion;
         public $especialidad;
+        public $miniatura;
 
         function __construct($cod_bar, $nombre, $latitud, $longitud, $pinchos = null)
         {
@@ -170,6 +171,26 @@
         public function getEspecialidad()
         {
                 return $this->especialidad;
+        }
+
+        /**
+         * Get the value of miniatura
+         */ 
+        public function getMiniatura()
+        {
+                return $this->miniatura;
+        }
+
+        /**
+         * Set the value of miniatura
+         *
+         * @return  self
+         */ 
+        public function setMiniatura($miniatura)
+        {
+                $this->miniatura = $miniatura;
+
+                return $this;
         }
     }
 ?>

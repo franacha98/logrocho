@@ -30,6 +30,9 @@
             cursor: pointer;
             background-color: silver;
         }
+        #carouselExampleCaptions {
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -48,20 +51,40 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <?php
+                                for ($i = 0; $i < count($fotos); $i++) {
+                                    if($i == 0){
+                                        echo "<div class='carousel-item active' data-bs-interval='5000'>";
+                                    }else{
+                                        echo "<div class='carousel-item' data-bs-interval='5000'>";
+                                    }
+                                ?>
+                                <img src="../../<?php echo $fotos[$i] ?>" class="d-block w-100" alt="pincho" />;
+                                <?php
+                                    echo "<div class='carousel-caption d-none d-md-block'>";
+                                    echo "<p>Imagen</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                }
+                                ?>
 
-                        <div class="preview-pic tab-content">
-                            <div class="tab-pane active" id="pic-1"><img src="../../<?php echo $fotos[0]; ?>" /></div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <ul class="preview-thumbnail nav nav-tabs">
-                            <?php
-
-                            for ($i = 0; $i < count($fotos); $i++) {
-                                echo "<li id='$ids[$i]'><a data-target='#pic-" . ($i + 1) . "' data-toggle='tab'><img class='imgPequena' src='../../$fotos[$i]' /></a></li>";
-                            }
-
-                            ?>
-
-                        </ul>
                     </div>
                     <div class="details col-md-6">
                         <h3 class="product-title"><?php echo $pincho->getNombre(); ?></h3>
@@ -135,7 +158,12 @@
     include "footer.php";
     ?>
     <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script src="../../estilos/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/script.js"></script>
+    <script>
+        var myCarousel = document.querySelector('#carouselExampleCaptions');
+        var carousel = new bootstrap.Carousel(myCarousel);
+    </script>
 </body>
 
 </html>

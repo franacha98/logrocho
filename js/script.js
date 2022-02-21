@@ -47,6 +47,24 @@ function irAFicha(element) {
   }
 }
 
+function irAFichaBarPublica(element){
+  let ruta = "";
+  if(window.location.href.includes("bares")){
+    ruta = window.location.href.replace("bares", "bar/" + element.parentElement.children[0].value);
+  }else if(window.location.href.includes("pinchos")){
+    ruta = window.location.href.replace("pinchos", "pincho/" + element.parentElement.children[0].value);
+  }else if (window.location.href.includes("bar/")){
+    let cod = $("#codigobar").val();
+    ruta = window.location.href.replace("bar/"+cod, "pincho/" + element.parentElement.children[0].value);
+  }else if(window.location.href.includes("zona-usuario/0")){
+    ruta = window.location.href.replace("zona-usuario/0", "pincho/" + element.parentElement.children[0].value);
+    
+  }else if(window.location.href.includes("zona-usuario/0")){
+    ruta = window.location.href.replace("zona-usuario/1", "pincho/" + element.parentElement.children[0].value);
+  }
+  window.location.href = ruta;
+}
+
 function irAFichaDesdeOtraFicha(element) {
   let auxUrl = "";
   let aux = location.href.split("/").length;

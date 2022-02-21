@@ -113,6 +113,8 @@
         $homecontroller->registro();
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "controlar-registro"){
         $homecontroller->controlRegistro();
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "contacto"){
+        $homecontroller->renderizarContacto();
     }else{   
         $homecontroller->renderizarHome();
     }

@@ -118,9 +118,21 @@
             $rutaModificar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/zona-usuario/1";
 
             $pinchos = $this->db->recuperarPinchosValoradosDeUsuario($username);
+            $lista = array();
+            for($i = 0; $i < count($pinchos); $i++){ 
+                $aux = $this->db->recuperarPincho($pinchos[$i]["cod_pincho"]);
+                $mini = $this->db->obtenerPrimeraImagenPincho($aux->getCod_pincho());
+                if ($mini == null) {
+                    $mini = "resources/media/logo-logrocho.png";
+                }
+                $aux->setMiniatura($mini);
+                array_push($lista, $aux);
+            }
+
+
             $resenas = $this->db->recuperarResenasDeUsuario($username);
                 // me quedo aqui
-                
+            
             $rutaEliminar = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/eliminar-resena/";
             $rutaPincho = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/pincho/";
             if($modificando){

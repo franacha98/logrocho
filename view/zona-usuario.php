@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="../../estilos/css/estilos-administracion.css" />
     <link rel="stylesheet" href="../../estilos/font-awesome-4.7.0/font-awesome-4.7.0/css/font-awesome.min.css" />
     <style>
-        .resena{
-            border-radius: 15px; border: 1px solid gray; background-color: white; padding: 5px; margin-bottom: 1%;
+        .resena {
+            border-radius: 15px;
+            border: 1px solid gray;
+            background-color: white;
+            padding: 5px;
+            margin-bottom: 1%;
         }
-        .resena:hover{
+
+        .resena:hover {
             cursor: pointer;
             background-color: silver;
         }
@@ -46,11 +51,30 @@
                         <a class="btn btn-dark" href="<?php echo $rutaModificar; ?>">Editar perfil</a>
                     </div>
                 </div>
-                
+
             </div><br>
             <div id="contenedor">
-                    <button id="btnPinchos" onclick="mostrarListaPinchos()" style="width:100%; height:60px;" class="btn btn-dark">VER LOS PINCHOS QUE HAS VALORADO</button><br><br>
-                    <table id="tablaPinchos" class="table table-hover table-bordered" style="display:none;">
+                <button id="btnPinchos" onclick="mostrarListaPinchos()" style="width:100%; height:60px;" class="btn btn-dark">VER LOS PINCHOS QUE HAS VALORADO</button><br>
+                <div id="pinchosBar" class="row" style="display: none;">
+                        <?php
+                        for ($i = 0; $i < count($pinchos); $i++) {
+                        ?>
+                            <div class="ficha card col-lg-3 col-md-3 col-6" style="margin-left: 5%; margin-bottom:10px;">
+                                <img style="border:1px solid black;" class="card-img-top" src="../../<?php echo $lista[$i]->getMiniatura(); ?>" alt="Card image cap">
+                                <div class="card-body">
+                                    <input type="hidden" value="<?php echo $lista[$i]->getCod_pincho(); ?>" />
+                                    <br>
+                                    <h3 class="card-text"><?php echo $lista[$i]->getNombre(); ?></h3>
+                                    <p><strong>Descripción:</strong> <?php echo $lista[$i]->getDescripcion(); ?></p>
+                                    <strong>Precio: <?php echo $lista[$i]->getPrecio(); ?> euros</strong><br>
+                                    <a style="width: 100%;" onclick="irAFichaBarPublica(this)" class="btn btn-primary">Ir al pincho</a>
+                                </div>
+                            </div>
+
+                        <?php } ?>
+                    </div>
+
+                <!--<table id="tablaPinchos" class="table table-hover table-bordered" style="display:none;">
                         <thead>
                             <tr>
                                 <th scope="col"></th>
@@ -62,41 +86,42 @@
                         </thead>
                         <tbody id="myTable">
                             <?php
-                            
+
                             for ($i = 0; $i < count($pinchos); $i++) {
                                 echo "<tr><th scope='row'></th><td onclick='irAFichaDesdeOtraFicha(this)'><input type='hidden' value='" . $pinchos[$i]["pincho"] . "' />" . $pinchos[$i]["nombre"] . "</td><td onclick='irAFichaDesdeOtraFicha(this)'>" . $pinchos[$i]["descripcion"] . "</td><td onclick='irAFichaDesdeOtraFicha(this)'>" . $pinchos[$i]["precio"] . "€</td><td onclick='irAFichaDesdeOtraFicha(this)'>" . $pinchos[$i]["nota"] . "</td></tr>";
                             }
                             ?>
                         </tbody>
-                    </table>
-                    <button onclick="mostrarResenas()" id="btnResenas" class="btn btn-dark" style="width:100%; height:60px;">VER TUS RESEÑAS</button><br><br>
-                    <div id="resenasUsuario" style="display:none">
+                    </table>-->
+                <br>
+                <button onclick="mostrarResenas()" id="btnResenas" class="btn btn-dark" style="width:100%; height:60px;">VER TUS RESEÑAS</button><br><br>
+                <div id="resenasUsuario" style="display:none">
                     <?php
-                        if($resenas != null && count($resenas) > 0){
-                            for ($i=0; $i < count($resenas); $i++) { 
-                                echo "<div class='resena' onclick='eliminarResena(this)'>";
-                                echo "<input type='hidden' value='" . $resenas[$i]["cod_valoracion"] . "'>";
-                                echo "<h4><i class='fa fa-user-circle' style='color: gray'></i> ". $resenas[$i]["usuario"] ." sobre <a href='".$rutaPincho.$resenas[$i]["pincho"]."'>". $resenas[$i]["nombre"]."</a> <i style='color:black' class='fa fa-external-link'></i></h4>";
-                                echo "<blockquote class='blockquote'>";
-                                echo $resenas[$i]["comentario"];
-                                echo "</blockquote>";
-                                echo "<span>Likes: " . $resenas[$i]["likes"] . " </span>";
-                                echo "<i class='fa fa-heart'></i>";
-                                echo "</div>"; 
-                                echo "<figcaption style='margin-top:-1%; margin-bottom:1%' class='figure-caption text-right'>Haz click en la reseña para eliminarla</figcaption>";  
-                            }
-                        }else{
-                            echo "<h4>Todavía no hay reseñas 🥱</h4>";
+                    if ($resenas != null && count($resenas) > 0) {
+                        for ($i = 0; $i < count($resenas); $i++) {
+                            echo "<div class='resena' onclick='eliminarResena(this)'>";
+                            echo "<input type='hidden' value='" . $resenas[$i]["cod_valoracion"] . "'>";
+                            echo "<h4><i class='fa fa-user-circle' style='color: gray'></i> " . $resenas[$i]["usuario"] . " sobre <a href='" . $rutaPincho . $resenas[$i]["pincho"] . "'>" . $resenas[$i]["nombre"] . "</a> <i style='color:black' class='fa fa-external-link'></i></h4>";
+                            echo "<blockquote class='blockquote'>";
+                            echo $resenas[$i]["comentario"];
+                            echo "</blockquote>";
+                            echo "<span>Likes: " . $resenas[$i]["likes"] . " </span>";
+                            echo "<i class='fa fa-heart'></i>";
+                            echo "</div>";
+                            echo "<figcaption style='margin-top:-1%; margin-bottom:1%' class='figure-caption text-right'>Haz click en la reseña para eliminarla</figcaption>";
                         }
-                        
-                        ?>
-                    </div>
+                    } else {
+                        echo "<h4>Todavía no hay reseñas 🥱</h4>";
+                    }
+
+                    ?>
+                </div>
             </div>
 
 
         </div>
     </div>
-    
+
     <?php
     include "footer.php";
     ?>
@@ -106,7 +131,7 @@
         let pinchos = true;
 
         function mostrarListaPinchos() {
-            $("#tablaPinchos").toggle();
+            $("#pinchosBar").toggle();
             if (pinchos == true) {
                 $("#btnPinchos").text("OCULTAR PINCHOS");
                 $("#btnPinchos").css("background-color", "grey");
@@ -119,21 +144,25 @@
         }
 
         let resenas = true;
+
         function mostrarResenas() {
             $("#resenasUsuario").toggle();
-            if (pinchos == true) {
+            if (resenas == true) {
                 $("#btnResenas").text("OCULTAR RESEÑAS");
                 $("#btnResenas").css("background-color", "grey");
-                pinchos = false;
+                resenas = false;
             } else {
                 $("#btnResenas").text("VER TUS RESEÑAS");
                 $("#btnResenas").css("background-color", "#40A980");
-                pinchos = true;
+                resenas = true;
             }
         }
 
-        function eliminarResena(element){
-            let hola = element;
+        function eliminarResena(element) {
+            let idResena = element.children[0].value;
+            let urlRedireccion = window.location.href.replace("/zona-usuario/0", "/eliminar-resena/" + idResena);
+            urlRedireccion = urlRedireccion.replace("/zona-usuario/1", "/eliminar-resena/" + idResena);
+            window.location.href = urlRedireccion;
         }
     </script>
 </body>

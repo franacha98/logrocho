@@ -918,5 +918,35 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
+
+    public function obtenerPrimeraImagenBar($cod_bar){
+        try{
+            $sql = "SELECT ruta FROM fotos_bares where bar=:bar";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("bar" => $cod_bar));
+            $fotos = array();
+            foreach ($stmt as $bar) {     
+                array_push($fotos, $bar);
+            }
+            return $fotos[0]["ruta"];
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function obtenerPrimeraImagenPincho($cod_pincho){
+        try{
+            $sql = "SELECT ruta FROM fotos_pinchos where pincho=:pincho";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("pincho" => $cod_pincho));
+            $fotos = array();
+            foreach ($stmt as $bar) {     
+                array_push($fotos, $bar);
+            }
+            return $fotos[0]["ruta"];
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
 }
 

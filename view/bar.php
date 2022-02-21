@@ -12,6 +12,23 @@
         .fa-star {
             font-size: 40px;
         }
+
+        #carouselExampleCaptions {
+            width: 100%;
+        }
+
+        .ficha {
+            background-color: white;
+            transition: background .3s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .ficha:hover {
+            background-color: #d4d4d4;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
@@ -22,6 +39,7 @@
     ?>
 
     <div class="page-content p-5" id="content">
+        <input type="hidden" id="codigobar" value="<?php echo $bar->getCod_bar(); ?>" />
         <!-- Toggle button -->
         <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i></button>
 
@@ -38,25 +56,22 @@
                             </div>
                             <div class="carousel-inner">
                                 <?php
-                                for ($i=0; $i < count($fotos); $i++) { 
-                                    echo "<div class='carousel-item active' data-bs-interval='5000'>";
-                                    echo "<img src='../../"+$fotos[$i]+"' class='d-block w-100' alt='pincho'>";
-                                    echo "<div class='carousel-caption d-none d-md-block'>";
-                                    echo "<h5>Foto $i</h5>";
-                                    echo "<p>Huevos rotos sobre un bollo de pan tierno con patatas y gulas.</p>";
-                                    echo "</div>";
-                                    echo "</div>";
-                                }                               
+                                for ($i = 0; $i < count($fotos); $i++) {
+                                    if ($i == 0) {
+                                        echo "<div class='carousel-item active' data-bs-interval='5000'>";
+                                    } else {
+                                        echo "<div class='carousel-item' data-bs-interval='5000'>";
+                                    }
                                 ?>
-                            
-                                <!--<div class="carousel-item active" data-bs-interval="5000">
-                                    <img src="../resources/media/losrotos-gulas.jpg" class="d-block w-100" alt="pincho1">
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>Roto de gulas</h5>
-                                        <p>Huevos rotos sobre un bollo de pan tierno con patatas y gulas.</p>
-                                    </div>
-                                </div>-->
-                                
+                                    <img src="../../<?php echo $fotos[$i] ?>" class="d-block w-100" alt="pincho" />;
+                                <?php
+                                    echo "<div class='carousel-caption d-none d-md-block'>";
+                                    echo "<p>Imagen</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                }
+                                ?>
+
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -73,15 +88,15 @@
                         <h3 class="product-title">Puntuación:</h3>
                         <div id="puntos">
                             <?php
-                            if ($puntuacion > 4 && $puntuacion < 5) {
+                            if ($puntuacion >= 4 && $puntuacion < 5) {
                                 echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrella;
-                            } else if ($puntuacion > 3 && $puntuacion < 4) {
+                            } else if ($puntuacion >= 3 && $puntuacion < 4) {
                                 echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrella . $estrella;
-                            } else if ($puntuacion > 2 && $puntuacion < 3) {
+                            } else if ($puntuacion >= 2 && $puntuacion < 3) {
                                 echo $estrellaCheck . $estrellaCheck . $estrella . $estrella . $estrella;
-                            } else if ($puntuacion > 1 && $puntuacion < 2) {
+                            } else if ($puntuacion >= 1 && $puntuacion < 2) {
                                 echo $estrellaCheck . $estrella . $estrella . $estrella . $estrella;
-                            } else if ($puntuacion > 0 && $puntuacion < 1) {
+                            } else if ($puntuacion >= 0 && $puntuacion < 1) {
                                 echo $estrella . $estrella . $estrella . $estrella . $estrella;
                             } else if ($puntuacion >= 5) {
                                 echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck;
@@ -105,24 +120,25 @@
                     </div>
                 </div><br>
                 <div id="contenedorPinchos">
-                    <button id="btnPinchosBar" class="btn btn-dark" style="width:100%; height:60px;" onclick="mostrarListaPinchos()">Mostrar los pinchos del bar</button><br><br>
-                    <table id="tablaPinchosDeBar" class="table table-hover table-bordered" style="display:none;">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody id="myTable">
-                            <?php
-                            for ($i = 0; $i < count($pinchosDelBar); $i++) {
-                                echo "<tr><th scope='row'></th><td onclick='irAFichaDesdeOtraFicha(this)'><input type='hidden' value='" . $pinchosDelBar[$i]->getCod_pincho() . "' />" . $pinchosDelBar[$i]->getNombre() . "</td><td onclick='irAFichaDesdeOtraFicha(this)'>" . $pinchosDelBar[$i]->getDescripcion() . "</td><td onclick='irAFichaDesdeOtraFicha(this)'>" . $pinchosDelBar[$i]->getPrecio() . "€</td></tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                    <button id="btnPinchosBar" class="btn btn-dark" style="width:100%; height:60px;" onclick="mostrarListaPinchos()">Mostrar los pinchos del bar</button><br>
+                    <div id="pinchosBar" class="row" style="display: none;">
+                        <?php
+                        for ($i = 0; $i < count($pinchosDelBar); $i++) {
+                        ?>
+                            <div class="ficha card col-lg-3 col-md-3 col-6" style="margin-left: 5%; margin-bottom:10px;">
+                                <img style="border:1px solid black;" class="card-img-top" src="../../<?php echo $pinchosDelBar[$i]->getMiniatura(); ?>" alt="Card image cap">
+                                <div class="card-body">
+                                    <input type="hidden" value="<?php echo $pinchosDelBar[$i]->getCod_pincho(); ?>" />
+                                    <br>
+                                    <h3 class="card-text"><?php echo $pinchosDelBar[$i]->getNombre(); ?></h3>
+                                    <p><strong>Descripción:</strong> <?php echo $pinchosDelBar[$i]->getDescripcion(); ?></p>
+                                    <strong>Precio: <?php echo $pinchosDelBar[$i]->getPrecio(); ?> euros</strong><br>
+                                    <a style="width: 100%;" onclick="irAFichaBarPublica(this)" class="btn btn-primary">Ir al pincho</a>
+                                </div>
+                            </div>
+
+                        <?php } ?>
+                    </div><br>
                     <button id="btnMapa" class="btn btn-dark" onclick="mostrarMapa()" style="width:100%; height:60px">Mostrar localización en el mapa</button><br><br>
 
                     <iframe id="mapa" style="display:none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1750.0422112085178!2d
@@ -151,7 +167,7 @@
         let pinchos = true;
 
         function mostrarListaPinchos() {
-            $("#tablaPinchosDeBar").toggle();
+            $("#pinchosBar").toggle();
             if (pinchos == true) {
                 $("#btnPinchosBar").text("Ocultar los pinchos del bar");
                 $("#btnPinchosBar").css("background-color", "grey");

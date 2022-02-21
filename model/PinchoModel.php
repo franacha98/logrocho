@@ -6,6 +6,8 @@
         private $descripcion;
         private $precio;
         private $bar;
+        private $miniatura;
+        private $puntuacion;
 
         function __construct($cod_pincho, $nombre, $descripcion, $precio, $bar)
         {
@@ -112,6 +114,46 @@
         public function setBar($bar)
         {
                 $this->bar = $bar;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of miniatura
+         */ 
+        public function getMiniatura()
+        {
+                return $this->miniatura;
+        }
+
+        /**
+         * Set the value of miniatura
+         *
+         * @return  self
+         */ 
+        public function setMiniatura($miniatura)
+        {
+                $this->miniatura = $miniatura;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of puntuacion
+         */ 
+        public function getPuntuacion()
+        {
+                return $this->puntuacion;
+        }
+
+        /**
+         * Set the value of puntuacion
+         *
+         * @return  self
+         */ 
+        public function setPuntuacion($puntuacion)
+        {
+                $this->puntuacion = $puntuacion;
 
                 return $this;
         }

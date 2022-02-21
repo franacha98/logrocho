@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 07, 2022 at 12:26 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.4.23
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 21-02-2022 a las 20:03:34
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `logrocho`
+-- Base de datos: `logrocho`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bares`
+-- Estructura de tabla para la tabla `bares`
 --
 
 CREATE TABLE `bares` (
@@ -35,7 +35,7 @@ CREATE TABLE `bares` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `bares`
+-- Volcado de datos para la tabla `bares`
 --
 
 INSERT INTO `bares` (`cod_bar`, `nombre`, `latitud`, `longitud`) VALUES
@@ -54,7 +54,7 @@ INSERT INTO `bares` (`cod_bar`, `nombre`, `latitud`, `longitud`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `favoritos`
+-- Estructura de tabla para la tabla `favoritos`
 --
 
 CREATE TABLE `favoritos` (
@@ -66,7 +66,7 @@ CREATE TABLE `favoritos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fotos_bares`
+-- Estructura de tabla para la tabla `fotos_bares`
 --
 
 CREATE TABLE `fotos_bares` (
@@ -76,19 +76,21 @@ CREATE TABLE `fotos_bares` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `fotos_bares`
+-- Volcado de datos para la tabla `fotos_bares`
 --
 
 INSERT INTO `fotos_bares` (`id`, `ruta`, `bar`) VALUES
 (8, 'resources/img_bares/2/bar1.jpg', 2),
 (13, 'resources/img_bares/3/bodeguilla-los-rotos (1).jpg', 3),
 (15, 'resources/img_bares/3/los-rotos.jpg', 3),
-(18, 'resources/img_bares/4/la-gota-de-vino.jpg', 4);
+(18, 'resources/img_bares/4/la-gota-de-vino.jpg', 4),
+(24, 'resources/img_bares/2/fachada-tio-agus.jpg', 2),
+(25, 'resources/img_bares/7/fondo2.jpg', 7);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fotos_pinchos`
+-- Estructura de tabla para la tabla `fotos_pinchos`
 --
 
 CREATE TABLE `fotos_pinchos` (
@@ -98,7 +100,7 @@ CREATE TABLE `fotos_pinchos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `fotos_pinchos`
+-- Volcado de datos para la tabla `fotos_pinchos`
 --
 
 INSERT INTO `fotos_pinchos` (`id`, `ruta`, `pincho`) VALUES
@@ -106,24 +108,41 @@ INSERT INTO `fotos_pinchos` (`id`, `ruta`, `pincho`) VALUES
 (15, 'resources/img_pinchos/7/fondo2.jpg', 7),
 (17, 'resources/img_pinchos/2/tioagus1.jpg', 2),
 (18, 'resources/img_pinchos/2/tioagus3.jpg', 2),
-(20, 'resources/img_pinchos/8/Captura de pantalla (1).png', 8);
+(20, 'resources/img_pinchos/8/Captura de pantalla (1).png', 8),
+(21, 'resources/img_pinchos/3/zorropito-gota-de-vino.jpg', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `likes_pincho`
+-- Estructura de tabla para la tabla `likes_pincho`
 --
 
 CREATE TABLE `likes_pincho` (
   `id` int(11) NOT NULL,
   `usuario` varchar(255) NOT NULL,
-  `pincho` int(11) NOT NULL
+  `pincho` int(11) NOT NULL,
+  `nota` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `likes_pincho`
+--
+
+INSERT INTO `likes_pincho` (`id`, `usuario`, `pincho`, `nota`) VALUES
+(1, 'gari@gmail.com', 2, 4),
+(2, 'fran@gmail.com', 2, 5),
+(3, 'sergio@gmail.com', 7, 1),
+(4, 'fran@gmail.com', 6, 4),
+(5, 'sarah@gmail.com', 2, 5),
+(6, 'sarah@gmail.com', 3, 5),
+(7, 'invitado', 2, 3),
+(8, 'invitado', 4, 1),
+(9, 'invitado', 6, 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `likes_valoracion`
+-- Estructura de tabla para la tabla `likes_valoracion`
 --
 
 CREATE TABLE `likes_valoracion` (
@@ -135,7 +154,7 @@ CREATE TABLE `likes_valoracion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pinchos`
+-- Estructura de tabla para la tabla `pinchos`
 --
 
 CREATE TABLE `pinchos` (
@@ -147,7 +166,7 @@ CREATE TABLE `pinchos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pinchos`
+-- Volcado de datos para la tabla `pinchos`
 --
 
 INSERT INTO `pinchos` (`cod_pincho`, `nombre`, `descripcion`, `bar`, `precio`) VALUES
@@ -162,7 +181,7 @@ INSERT INTO `pinchos` (`cod_pincho`, `nombre`, `descripcion`, `bar`, `precio`) V
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -173,21 +192,25 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`usuario`, `contrasena`, `admin`, `nombre`) VALUES
 ('admin', 'admin', 1, 'Administrador'),
 ('fran@gmail.com', '1234', 1, 'Fran Acha'),
 ('gari@gmail.com', '1234', 0, 'Gari Acha'),
+('hola@gmail.com', '1234', 0, 'Pimiento Amarillo'),
 ('invitado', '1234', 0, 'Invitado'),
+('noro@gmail.com', '1234', 0, 'Fran Noro'),
+('oscar@gmail.com', '1234', 0, 'Oscar'),
+('pepito', '1234', 0, 'Pepito Grillo'),
 ('sarah@gmail.com', '1234', 1, 'Sarah Serrano'),
 ('sergio@gmail.com', '1234', 0, 'Sergio Quiñones');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `valoraciones`
+-- Estructura de tabla para la tabla `valoraciones`
 --
 
 CREATE TABLE `valoraciones` (
@@ -199,26 +222,28 @@ CREATE TABLE `valoraciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `valoraciones`
+-- Volcado de datos para la tabla `valoraciones`
 --
 
 INSERT INTO `valoraciones` (`cod_valoracion`, `usuario`, `pincho`, `comentario`, `likes`) VALUES
 (1, 'sarah@gmail.com', 2, 'Estaba muy rico', 2),
 (2, 'fran@gmail.com', 2, 'La salsa era increíble!', 5),
-(3, 'sarah@gmail.com', 3, 'Un poco soso', 13);
+(3, 'sarah@gmail.com', 3, 'Un poco soso', 13),
+(5, 'invitado', 2, 'Increible su sabor', 0),
+(6, 'invitado', 4, 'De locos', 1);
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `bares`
+-- Indices de la tabla `bares`
 --
 ALTER TABLE `bares`
   ADD PRIMARY KEY (`cod_bar`);
 
 --
--- Indexes for table `favoritos`
+-- Indices de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
   ADD PRIMARY KEY (`cod_favoritos`),
@@ -226,7 +251,7 @@ ALTER TABLE `favoritos`
   ADD KEY `usuario` (`usuario`);
 
 --
--- Indexes for table `fotos_bares`
+-- Indices de la tabla `fotos_bares`
 --
 ALTER TABLE `fotos_bares`
   ADD PRIMARY KEY (`id`),
@@ -234,7 +259,7 @@ ALTER TABLE `fotos_bares`
   ADD KEY `bar` (`bar`);
 
 --
--- Indexes for table `fotos_pinchos`
+-- Indices de la tabla `fotos_pinchos`
 --
 ALTER TABLE `fotos_pinchos`
   ADD PRIMARY KEY (`id`),
@@ -242,7 +267,7 @@ ALTER TABLE `fotos_pinchos`
   ADD KEY `pincho` (`pincho`);
 
 --
--- Indexes for table `likes_pincho`
+-- Indices de la tabla `likes_pincho`
 --
 ALTER TABLE `likes_pincho`
   ADD PRIMARY KEY (`id`),
@@ -250,7 +275,7 @@ ALTER TABLE `likes_pincho`
   ADD KEY `pincho` (`pincho`);
 
 --
--- Indexes for table `likes_valoracion`
+-- Indices de la tabla `likes_valoracion`
 --
 ALTER TABLE `likes_valoracion`
   ADD PRIMARY KEY (`id`),
@@ -258,20 +283,20 @@ ALTER TABLE `likes_valoracion`
   ADD KEY `valoracion` (`valoracion`);
 
 --
--- Indexes for table `pinchos`
+-- Indices de la tabla `pinchos`
 --
 ALTER TABLE `pinchos`
   ADD PRIMARY KEY (`cod_pincho`),
   ADD KEY `bar` (`bar`);
 
 --
--- Indexes for table `usuarios`
+-- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`usuario`);
 
 --
--- Indexes for table `valoraciones`
+-- Indices de la tabla `valoraciones`
 --
 ALTER TABLE `valoraciones`
   ADD PRIMARY KEY (`cod_valoracion`),
@@ -279,102 +304,102 @@ ALTER TABLE `valoraciones`
   ADD KEY `usuario` (`usuario`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `bares`
+-- AUTO_INCREMENT de la tabla `bares`
 --
 ALTER TABLE `bares`
   MODIFY `cod_bar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT for table `favoritos`
+-- AUTO_INCREMENT de la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
   MODIFY `cod_favoritos` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `fotos_bares`
+-- AUTO_INCREMENT de la tabla `fotos_bares`
 --
 ALTER TABLE `fotos_bares`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- AUTO_INCREMENT for table `fotos_pinchos`
+-- AUTO_INCREMENT de la tabla `fotos_pinchos`
 --
 ALTER TABLE `fotos_pinchos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
--- AUTO_INCREMENT for table `likes_pincho`
+-- AUTO_INCREMENT de la tabla `likes_pincho`
 --
 ALTER TABLE `likes_pincho`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `likes_valoracion`
+-- AUTO_INCREMENT de la tabla `likes_valoracion`
 --
 ALTER TABLE `likes_valoracion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `pinchos`
+-- AUTO_INCREMENT de la tabla `pinchos`
 --
 ALTER TABLE `pinchos`
   MODIFY `cod_pincho` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `valoraciones`
+-- AUTO_INCREMENT de la tabla `valoraciones`
 --
 ALTER TABLE `valoraciones`
-  MODIFY `cod_valoracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cod_valoracion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `favoritos`
+-- Filtros para la tabla `favoritos`
 --
 ALTER TABLE `favoritos`
   ADD CONSTRAINT `favoritos_ibfk_1` FOREIGN KEY (`pincho`) REFERENCES `pinchos` (`cod_pincho`) ON DELETE CASCADE,
   ADD CONSTRAINT `favoritos_ibfk_2` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`usuario`) ON DELETE CASCADE;
 
 --
--- Constraints for table `fotos_bares`
+-- Filtros para la tabla `fotos_bares`
 --
 ALTER TABLE `fotos_bares`
   ADD CONSTRAINT `fotos_bares_ibfk_1` FOREIGN KEY (`bar`) REFERENCES `bares` (`cod_bar`) ON DELETE CASCADE;
 
 --
--- Constraints for table `fotos_pinchos`
+-- Filtros para la tabla `fotos_pinchos`
 --
 ALTER TABLE `fotos_pinchos`
   ADD CONSTRAINT `fotos_pinchos_ibfk_1` FOREIGN KEY (`pincho`) REFERENCES `pinchos` (`cod_pincho`) ON DELETE CASCADE;
 
 --
--- Constraints for table `likes_pincho`
+-- Filtros para la tabla `likes_pincho`
 --
 ALTER TABLE `likes_pincho`
   ADD CONSTRAINT `likes_pincho_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`usuario`) ON DELETE CASCADE,
   ADD CONSTRAINT `likes_pincho_ibfk_2` FOREIGN KEY (`pincho`) REFERENCES `pinchos` (`cod_pincho`) ON DELETE CASCADE;
 
 --
--- Constraints for table `likes_valoracion`
+-- Filtros para la tabla `likes_valoracion`
 --
 ALTER TABLE `likes_valoracion`
   ADD CONSTRAINT `likes_valoracion_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`usuario`) ON DELETE CASCADE,
   ADD CONSTRAINT `likes_valoracion_ibfk_2` FOREIGN KEY (`valoracion`) REFERENCES `valoraciones` (`cod_valoracion`) ON DELETE CASCADE;
 
 --
--- Constraints for table `pinchos`
+-- Filtros para la tabla `pinchos`
 --
 ALTER TABLE `pinchos`
   ADD CONSTRAINT `pinchos_ibfk_1` FOREIGN KEY (`bar`) REFERENCES `bares` (`cod_bar`) ON DELETE CASCADE;
 
 --
--- Constraints for table `valoraciones`
+-- Filtros para la tabla `valoraciones`
 --
 ALTER TABLE `valoraciones`
   ADD CONSTRAINT `valoraciones_ibfk_1` FOREIGN KEY (`pincho`) REFERENCES `pinchos` (`cod_pincho`) ON DELETE CASCADE,

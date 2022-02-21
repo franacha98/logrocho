@@ -1,0 +1,5 @@
+Enviar reseñas
+Olvido su contraseña
+Implementar funcionamiento contacto
+Likes a reseñas
+Codificar contraseñas

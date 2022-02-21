@@ -49,8 +49,12 @@
         public function eliminarResena($cod_valoracion){
             $rutaAnadirResena = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-resena";
             $this->db->eliminarResena($cod_valoracion);
-
-            header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-resenas");
+            if($_SESSION["admin"] == "YES"){
+                header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-resenas");
+            }else{
+                header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/zona-usuario/0");
+            }
+            
         }
         /**
          * Obtiene una reseña a partir del codigo para que se pinte en la vista

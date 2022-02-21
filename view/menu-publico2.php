@@ -1,6 +1,7 @@
 <header id="header">
-    <img src="../../resources/media/logo-logrocho.png"> 
-
+    <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/inicio";?>">
+      <img src="../../resources/media/logo-logrocho.png"> 
+    </a>
   </header>
 <div class="vertical-nav bg-white" id="sidebar">
     <div class="py-4 px-3 mb-4 bg-light">

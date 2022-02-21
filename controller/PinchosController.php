@@ -164,6 +164,24 @@
         
         public function listaPinchosPublico(){
             $lista = $this->db->listaPinchos();
+           
+            for ($i=0; $i < count($lista); $i++) { 
+                $mini = $this->db->obtenerPrimeraImagenPincho($lista[$i]->getCod_pincho());
+                if($mini == null){
+                    $mini = "resources/media/logo-logrocho.png";
+                }
+                $lista[$i]->setMiniatura($mini);
+                $bar = $this->db->recuperarBar($lista[$i]->getBar());
+                $lista[$i]->setBar($bar);
+                $puntuacion = $this->db->puntuacionPincho($lista[$i]->getCod_pincho());
+                if($puntuacion["puntuacion"] == null){
+                    $lista[$i]->setPuntuacion("0");
+                }else{
+                    $lista[$i]->setPuntuacion($puntuacion["puntuacion"]);
+                }
+                
+            }
+
 
             require("view/pinchos-publico.php");
         }

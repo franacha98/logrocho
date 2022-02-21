@@ -131,6 +131,13 @@
             $rutaListaResenas = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-resenas";
             require("view/home-publica.php");
         }
+
+
+        public function renderizarContacto(){
+
+
+            require("view/contacto.php");
+        }
     }
 
 ?>
