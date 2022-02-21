@@ -30,19 +30,43 @@
             <div class="container-fliud">
                 <div class="wrapper row">
                     <div class="preview col-md-6">
-
-                        <div class="preview-pic tab-content">
-                            <div class="tab-pane active" id="pic-1"><img src="../../<?php echo $fotos[0]; ?>" /></div>
+                        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <?php
+                                for ($i=0; $i < count($fotos); $i++) { 
+                                    echo "<div class='carousel-item active' data-bs-interval='5000'>";
+                                    echo "<img src='../../"+$fotos[$i]+"' class='d-block w-100' alt='pincho'>";
+                                    echo "<div class='carousel-caption d-none d-md-block'>";
+                                    echo "<h5>Foto $i</h5>";
+                                    echo "<p>Huevos rotos sobre un bollo de pan tierno con patatas y gulas.</p>";
+                                    echo "</div>";
+                                    echo "</div>";
+                                }                               
+                                ?>
+                            
+                                <!--<div class="carousel-item active" data-bs-interval="5000">
+                                    <img src="../resources/media/losrotos-gulas.jpg" class="d-block w-100" alt="pincho1">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>Roto de gulas</h5>
+                                        <p>Huevos rotos sobre un bollo de pan tierno con patatas y gulas.</p>
+                                    </div>
+                                </div>-->
+                                
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <ul class="preview-thumbnail nav nav-tabs">
-                            <?php
-
-                            for ($i = 0; $i < count($fotos); $i++) {
-                                echo "<li id='$ids[$i]'><a data-target='#pic-" . ($i + 1) . "' data-toggle='tab'><img class='imgPequena' src='../../$fotos[$i]' /></a></li>";
-                            }
-
-                            ?>
-                        </ul>
                     </div>
                     <div class="details col-md-6">
                         <h3 class="product-title">Nombre: <?php echo $bar->getNombre(); ?></h3><br>
@@ -103,10 +127,10 @@
 
                     <iframe id="mapa" style="display:none" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1750.0422112085178!2d
                         <?php echo $bar->getLongitud(); ?>!3d<?php echo $bar->getLatitud(); ?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5aab47796c184f%3A0x77b6adb3ab59ccd5!2s
-                        <?php echo $encodedName?>%22!5e0!3m2!1ses!2ses!4v1644262431626!5m2!1ses!2ses" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    
+                        <?php echo $encodedName ?>%22!5e0!3m2!1ses!2ses!4v1644262431626!5m2!1ses!2ses" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
-                    
+
+
 
                 </div>
             </div>
@@ -118,9 +142,12 @@
     <script src="../../js/jquery-3.6.0.min.js"></script>
     <script src="../../estilos/bootstrap/js/bootstrap.min.js"></script>
     <script src="../../js/script.js"></script>
-   
+
 
     <script>
+        var myCarousel = document.querySelector('#carouselExampleCaptions');
+        var carousel = new bootstrap.Carousel(myCarousel);
+
         let pinchos = true;
 
         function mostrarListaPinchos() {

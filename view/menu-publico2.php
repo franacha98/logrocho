@@ -16,27 +16,27 @@
     <?php 
       $auxbar = false;
       $auxusuario = false;
-      $auxresena = false;
+      $auxcontacto = false;
       $auxpincho = false;
       if(strpos($_SERVER['REQUEST_URI'], "bar")){
         $auxbar = true;
         $auxusuario = false;
-        $auxresena = false;
+        $auxcontacto = false;
         $auxpincho = false;
       }else if(strpos($_SERVER['REQUEST_URI'], "usuario")){
         $auxbar = false;
         $auxusuario = true;
-        $auxresena = false;
+        $auxcontacto = false;
         $auxpincho = false;
-      }else if(strpos($_SERVER['REQUEST_URI'], "resena")){
+      }else if(strpos($_SERVER['REQUEST_URI'], "contacto")){
         $auxbar = false;
         $auxusuario = false;
-        $auxresena = true;
+        $auxcontacto = true;
         $auxpincho = false;
       }else if(strpos($_SERVER['REQUEST_URI'], "pincho")){
         $auxbar = false;
         $auxusuario = false;
-        $auxresena = false;
+        $auxcontacto = false;
         $auxpincho = true;
       }
       
