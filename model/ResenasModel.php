@@ -6,7 +6,8 @@
         private $pincho;
         private $comentario;
         private $likes;
-
+        private $flag;
+        
         public function __construct($cod_valoracion, $usuario, $pincho, $comentario, $likes)
         {
             $this->cod_valoracion = $cod_valoracion;
@@ -112,6 +113,26 @@
         public function setLikes($likes)
         {
                 $this->likes = $likes;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of flag
+         */ 
+        public function getFlag()
+        {
+                return $this->flag;
+        }
+
+        /**
+         * Set the value of flag
+         *
+         * @return  self
+         */ 
+        public function setFlag($flag)
+        {
+                $this->flag = $flag;
 
                 return $this;
         }

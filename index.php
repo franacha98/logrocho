@@ -117,6 +117,8 @@
         $homecontroller->renderizarContacto();
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "mapa"){
         $homecontroller->mapa();
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "me-gusta"){
+        $resenascontroller->meGusta($array_ruta[1]);
     }else{   
         $homecontroller->renderizarHome();
     }

@@ -304,7 +304,7 @@
       pag = 0;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-pinchos/0/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-pinchos/0/" + numero,
         dataType: "json",
         success: function(response) {
           pinchos = response;
@@ -324,7 +324,7 @@
       pag = pag + numero;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-pinchos/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-pinchos/" + pag + "/" + numero,
         //data: {"pais" : datalist.value},
         dataType: "json",
         success: function(response) {
@@ -350,7 +350,7 @@
       }
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-pinchos/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-pinchos/" + pag + "/" + numero,
         //data: {"pais" : datalist.value},
         dataType: "json",
         success: function(response) {

@@ -28,7 +28,15 @@
     ?>
 
     <div class="page-content p-5" id="content">
+        <select id="bares" hidden>
+            <?php  
+                for($i = 0; $i < $num_bares; $i++){
+                    echo "<option id='".$bares[$i]->getCod_bar()."' value='".$bares[$i]->getLatitud()."'>".$bares[$i]->getLongitud()."</option>";
+                }
+            ?>
+        </select>
         <input type="hidden" value="<?php echo $rutaMarkers; ?>" id="ruta" />
+        <input type="hidden" value="<?php echo $num_bares; ?>" id="numbares" />
         <div id="map">
             <div id="popup"></div>
         </div>
@@ -42,14 +50,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.1.1/build/ol.js"></script>
     <script>
-        const iconFeature = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([-2.4479341134196537, 42.46566052532229])),
-            name: 'Calle la Laurel',
-        });
-        const m2 = new ol.Feature({
-            geometry: new ol.geom.Point(ol.proj.fromLonLat([-2.449441793272118, 42.466358795837884])),
-            name: 'Bar Lorenzo',
-        });
+        let numbares = parseInt($("#numbares").val());
+        let markers = [];
+
+        let select = document.getElementById("bares");  
+        for (let i = 0; i < select.children.length; i++) {
+            let opt = select.children[i];
+            let mark = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.fromLonLat([opt.text, opt.value])),
+                name: opt.id,
+            });
+            markers.push(mark);
+        }
         const map = new ol.Map({
             target: 'map',
             layers: [
@@ -58,7 +70,7 @@
                 }),
                 new ol.layer.Vector({
                     source: new ol.source.Vector({
-                        features: [iconFeature, m2]
+                        features: markers //[iconFeature, m2]
                     }),
                     style: new ol.style.Style({
                         image: new ol.style.Icon({
@@ -76,17 +88,16 @@
             })
         });
 
-        map.on('click', function (evt) {
-            var feature = map.forEachFeatureAtPixel(evt.pixel, function (feat, layer) {
+        map.on('click', function(evt) {
+            var feature = map.forEachFeatureAtPixel(evt.pixel, function(feat, layer) {
                 return feat;
-            }
-            );
-            if(feature != undefined){
-                let rutaMarkers = $("#ruta").val(); 
+            });
+            if (feature != undefined) {
+                let rutaMarkers = $("#ruta").val();
                 let barID = feature.get('name');
-                //window.location.href = rutaMarkers + barID;
+                window.location.href = rutaMarkers + barID;
             }
-            
+
 
         });
     </script>

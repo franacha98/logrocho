@@ -101,8 +101,6 @@
                     $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php/inicio";
                 }
 
-                echo $ruta;
-
                 header("Location: $ruta");
             }else{
                 $ruta = "http://" . $_SERVER["HTTP_HOST"] . $aux . "index.php";
@@ -140,9 +138,10 @@
         }
 
         public function mapa(){
-            $rutaMarkers = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/bares/";
+            $rutaMarkers = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/bar/";
             $bares = $this->db->listaBares();
-            
+            $num_bares = count($bares);
+
             require("view/mapa.php");
         }
     }

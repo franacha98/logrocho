@@ -1,13 +1,13 @@
 <?php
     class Pincho{
 
-        private $cod_pincho;
-        private $nombre;
-        private $descripcion;
-        private $precio;
-        private $bar;
-        private $miniatura;
-        private $puntuacion;
+        public $cod_pincho;
+        public $nombre;
+        public $descripcion;
+        public $precio;
+        public $bar;
+        public $miniatura;
+        public $puntuacion;
 
         function __construct($cod_pincho, $nombre, $descripcion, $precio, $bar)
         {

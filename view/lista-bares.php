@@ -257,7 +257,7 @@
       pag = 0;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-bares/0/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-bares/0/" + numero,
         dataType: "json",
         success: function(response) {
           bares = response;
@@ -279,7 +279,7 @@
       pag = pag + numero;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-bares/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-bares/" + pag + "/" + numero,
         //data: {"pais" : datalist.value},
         dataType: "json",
         success: function(response) {
@@ -308,7 +308,7 @@
       }
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-bares/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-bares/" + pag + "/" + numero,
         //data: {"pais" : datalist.value},
         dataType: "json",
         success: function(response) {

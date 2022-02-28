@@ -33,6 +33,11 @@
         #carouselExampleCaptions {
             width: 100%;
         }
+        .flaglike{
+            font-size: 50px;
+            margin-left: 85%;
+            margin-bottom: 2%;
+        }
     </style>
 </head>
 
@@ -128,17 +133,23 @@
                         </form>
                     </div>                      
                     <div id="resenas" style="margin-top: 5%;">
-                        <h3 class="product-title">Reseñas</h3>
+                        <h3 class="product-title">Reseñas</h3>                       
                         <?php
                         if($resenas != null && count($resenas) > 0){
                             for ($i=0; $i < count($resenas); $i++) { 
-                                echo "<div class='resena'>";
+                                echo "<div class='resena' onclick='meGustaResena(". $resenas[$i]->getCod_valoracion() .")'>";
                                 echo "<h4><i class='fa fa-user-circle' style='color: gray'></i> ". $resenas[$i]->getUsuario() .":</h4>";
                                 echo "<blockquote class='blockquote'>";
                                 echo $resenas[$i]->getComentario();
                                 echo "</blockquote>";
                                 echo "<span>Likes: " . $resenas[$i]->getLikes() . " </span>";
                                 echo "<i class='fa fa-heart'></i>";
+                                if($resenas[$i]->getFlag()){
+                                    echo "<i class='flaglike fa fa-heart'></i>";
+                                }else{
+                                    echo "<i class='flaglike fa fa-heart-o'></i>";
+                                }
+                                
                                 echo "</div>"; 
                                 echo "<figcaption style='margin-top:-1%; margin-bottom:1%' class='figure-caption text-right'>Haz click en la reseña para indicar que te gusta</figcaption>";
                             }
@@ -163,6 +174,22 @@
     <script>
         var myCarousel = document.querySelector('#carouselExampleCaptions');
         var carousel = new bootstrap.Carousel(myCarousel);
+
+        function meGustaResena(cod_resena){
+            $.ajax({
+                type: "POST",
+                url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/me-gusta/"+cod_resena,
+                dataType: "json",
+                success: function (response) {
+                    if(response == "YA NO ME GUSTA"){
+                        $(".flaglike").removeClass("fa-heart").addClass("fa-heart-o");
+                    }else if(response == "ME GUSTA"){
+                        $(".flaglike").removeClass("fa-heart-o").addClass("fa-heart");
+                    }
+                }
+            });
+        }
+
     </script>
 </body>
 

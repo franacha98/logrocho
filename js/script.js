@@ -99,7 +99,7 @@ function eliminarImgBar(elemento) {
 
   $.ajax({
     type: "GET",
-    url: "http://localhost/logrocho/index.php/eliminar-foto-bar/" + id,
+    url: "http://francisco.ociobinario.com/logrocho/index.php/eliminar-foto-bar/" + id,
     dataType: "json",
     success: function (response) {
       location.reload(true);
@@ -112,7 +112,7 @@ function eliminarImgPincho(elemento) {
 
   $.ajax({
     type: "GET",
-    url: "http://localhost/logrocho/index.php/eliminar-foto-pincho/" + id,
+    url: "http://francisco.ociobinario.com/logrocho/index.php/eliminar-foto-pincho/" + id,
     dataType: "json",
     success: function (response) {
       location.reload(true);

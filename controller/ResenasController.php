@@ -107,6 +107,11 @@
 
             echo json_encode($resena);
         }
+
+        public function meGusta($cod_resena){
+            $usuario = $_SESSION["idusuario"];
+            $this->db->meGusta($usuario, $cod_resena);
+        }
     }
 
 ?>

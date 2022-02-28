@@ -136,10 +136,9 @@
          */
         public function listaPinchosJson($limit, $num){
             $pinchos = $this->db->listaPinchosJson($limit, $num);
-           
-            echo json_encode($pinchos);
-            
+            echo json_encode($pinchos);        
         }
+
         /**
          * pincho en formato json
          *
@@ -211,9 +210,17 @@
 
             $resenas = $this->db->resenasDePincho($cod_pincho);
 
+            $mislikes = $this->db->misLikes($_SESSION["idusuario"]);
+
             for ($i=0; $i < count($resenas); $i++) { 
                 $nombre = $this->db->nombreUsuario($resenas[$i]->getUsuario());
                 $resenas[$i]->setUsuario($nombre);
+                $resenas[$i]->setFlag(false);
+                for ($j=0; $j < count($mislikes); $j++) { 
+                    if($mislikes[$j] == $resenas[$i]->getCod_valoracion()){
+                        $resenas[$i]->setFlag(true);
+                    }
+                }
             }
             require("view/pincho.php");
         }

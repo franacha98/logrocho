@@ -230,8 +230,10 @@ class BaresController
     public function listaBaresJson($limit, $num)
     {
         $bares = $this->db->listaBaresJson($limit, $num);
-
-        $arraybares = array();
+        if($_SESSION["admin"]=="YES"){
+            echo json_encode($bares);
+        }else{
+            $arraybares = array();
         for ($i = 0; $i < count($bares); $i++) {
             $codbar = $bares[$i]["cod_bar"];
 
@@ -257,6 +259,7 @@ class BaresController
         }
         //var_dump($bares);
         echo json_encode($arraybares);
+        }
     }
     /**
      * informacion de un bar en formato json

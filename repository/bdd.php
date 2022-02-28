@@ -8,7 +8,7 @@ class BBDD
 
     public function __construct()
     {
-        $this->DB_INFO = 'mysql:host=localhost;dbname=logrocho';
+        $this->DB_INFO = 'mysql:host='. $_SERVER["HTTP_HOST"] .';dbname=logrocho';
         $this->DB_USER = 'root';
         $this->DB_PASS = '';
         $this->conexion = new PDO($this->DB_INFO, $this->DB_USER, $this->DB_PASS);
@@ -286,14 +286,15 @@ class BBDD
     {
         try {
             $sql = "SELECT pinchos.cod_pincho,pinchos.nombre as nombre,pinchos.descripcion,pinchos.precio,bares.nombre as bar FROM pinchos JOIN bares ON (pinchos.bar=bares.cod_bar) LIMIT $limit, $num;";
+
             $resultado = $this->conexion->query($sql);        
             $pinchos = array();
             foreach ($resultado as $aux) {
                 $pincho = new Pincho($aux["cod_pincho"], $aux["nombre"], $aux["descripcion"], $aux["precio"], $aux["bar"]);
-                array_push($pinchos, $aux);
+                array_push($pinchos, $pincho);
             }
             return $pinchos;
-            //echo json_encode($bares);
+
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
         }
@@ -944,6 +945,62 @@ class BBDD
                 array_push($fotos, $bar);
             }
             return $fotos[0]["ruta"];
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function misLikes($usuario){
+        try{
+            $sql = "SELECT * FROM likes_valoracion where usuario=:usuario";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("usuario" => $usuario));
+            $fotos = array();
+            foreach ($stmt as $aux) {     
+                array_push($fotos, $aux["valoracion"]);
+            }
+            return $fotos;
+        } catch (PDOException $e){
+            echo "Error con la DB: " . $e->getMessage();
+        }
+    }
+
+    public function meGusta($usuario, $resena){
+        try{
+            //comprobamos si el usuario ya le habia dado like
+            $sql = "SELECT * FROM likes_valoracion WHERE usuario=:usuario AND valoracion=:resena";     
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->execute(array("usuario" => $usuario, "resena" => $resena));
+            $num = $stmt->rowCount();
+
+            //numero de likes de la resena
+            $numerolikes = "SELECT likes FROM valoraciones where cod_valoracion=:resena";  
+            $st = $this->conexion->prepare($numerolikes);
+            $st->execute(array("resena" => $resena));
+            
+            $aux = array();
+            foreach ($st as $bar) {
+                $a = $bar["likes"];
+                array_push($aux, $a);
+            }
+            $likes = intval($aux[0]);
+            if ($num == 0) {
+                //si no le ha dado lo guardamos
+                $insert = "INSERT INTO likes_valoracion (usuario,valoracion) VALUES ('$usuario', '$resena')";   
+                $resultado = $this->conexion->query($insert);
+                $likes++;
+
+                echo "ME GUSTA";
+            } else {
+                //si ya le habia dado lo borramos
+                $delete = "DELETE FROM likes_valoracion WHERE usuario='$usuario' AND valoracion='$resena'";
+                $likes--;
+                $resultado = $this->conexion->query($delete);       
+                echo "YA NO ME GUSTA";
+            }
+
+            $update = "UPDATE valoraciones SET likes = '$likes' WHERE cod_valoracion='$resena'";
+            $exe = $this->conexion->query($update);
         } catch (PDOException $e){
             echo "Error con la DB: " . $e->getMessage();
         }
