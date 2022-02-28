@@ -19,26 +19,37 @@
       $auxusuario = false;
       $auxcontacto = false;
       $auxpincho = false;
+      $auxmapa = false;
       if(strpos($_SERVER['REQUEST_URI'], "bar")){
         $auxbar = true;
         $auxusuario = false;
         $auxcontacto = false;
         $auxpincho = false;
+        $auxmapa = false;
       }else if(strpos($_SERVER['REQUEST_URI'], "usuario")){
         $auxbar = false;
         $auxusuario = true;
         $auxcontacto = false;
         $auxpincho = false;
+        $auxmapa = false;
       }else if(strpos($_SERVER['REQUEST_URI'], "contacto")){
         $auxbar = false;
         $auxusuario = false;
         $auxcontacto = true;
         $auxpincho = false;
+        $auxmapa = false;
       }else if(strpos($_SERVER['REQUEST_URI'], "pincho")){
         $auxbar = false;
         $auxusuario = false;
         $auxcontacto = false;
         $auxpincho = true;
+        $auxmapa = false;
+      }else if(strpos($_SERVER['REQUEST_URI'], "mapa")){
+        $auxbar = false;
+        $auxusuario = false;
+        $auxcontacto = false;
+        $auxpincho = false;
+        $auxmapa = true;
       }
       
     ?>
@@ -65,6 +76,12 @@
         <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/contacto";?>" class="nav-link text-dark font-italic">
           <i class="fa fa-envelope mr-3 fa-fw" <?php echo ($auxcontacto==true) ? "style='color: white'" : "" ?>></i>
           <span <?php echo ($auxcontacto==true) ? "style='color: white'" : "" ?>>Contacto</span>
+        </a>
+      </li> 
+      <li class="nav-item" <?php echo ($auxmapa==true) ? "style='background-color: #40A980'" : "" ?>>
+        <a href="<?php echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/mapa";?>" class="nav-link text-dark font-italic">
+          <i class="fa fa-map-marker mr-3 fa-fw" <?php echo ($auxmapa==true) ? "style='color: white'" : "" ?>></i>
+          <span <?php echo ($auxmapa==true) ? "style='color: white'" : "" ?>>Mapa de la Laurel</span>
         </a>
       </li> 
     </ul>

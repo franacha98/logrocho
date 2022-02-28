@@ -26,7 +26,7 @@
 
  
     $array_ruta = explode("/", $ruta);
-
+    error_reporting(E_ALL ^ E_NOTICE);
 
     if(isset($array_ruta[0]) && $array_ruta[0] == "check-login"){
         $homecontroller->comprobarLogin();    

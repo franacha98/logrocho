@@ -38,7 +38,10 @@ class BaresController
             $aux = $this->db->puntuacionBar($lista[$i]->getCod_bar());
             $nota = $aux["nota"];
             $votos = $aux["votos"];
-            $puntuacion = round($nota / $votos, 2);
+            if($votos != null && $votos != 0){
+                $puntuacion = round($nota / $votos, 2);
+            }
+            //$puntuacion = round($nota / $votos, 2);
             $estrellaCheck = "<span class='fa fa-star checked'></span>  ";
             $estrella = "<span class='fa fa-star'></span>  ";
 

@@ -140,7 +140,9 @@
         }
 
         public function mapa(){
-
+            $rutaMarkers = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/bares/";
+            $bares = $this->db->listaBares();
+            
             require("view/mapa.php");
         }
     }

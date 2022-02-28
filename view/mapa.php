@@ -28,7 +28,7 @@
     ?>
 
     <div class="page-content p-5" id="content">
-
+        <input type="hidden" value="<?php echo $rutaMarkers; ?>" id="ruta" />
         <div id="map">
             <div id="popup"></div>
         </div>
@@ -46,7 +46,10 @@
             geometry: new ol.geom.Point(ol.proj.fromLonLat([-2.4479341134196537, 42.46566052532229])),
             name: 'Calle la Laurel',
         });
-
+        const m2 = new ol.Feature({
+            geometry: new ol.geom.Point(ol.proj.fromLonLat([-2.449441793272118, 42.466358795837884])),
+            name: 'Bar Lorenzo',
+        });
         const map = new ol.Map({
             target: 'map',
             layers: [
@@ -55,7 +58,7 @@
                 }),
                 new ol.layer.Vector({
                     source: new ol.source.Vector({
-                        features: [iconFeature]
+                        features: [iconFeature, m2]
                     }),
                     style: new ol.style.Style({
                         image: new ol.style.Icon({
@@ -71,6 +74,20 @@
                 center: ol.proj.fromLonLat([-2.4479341134196537, 42.46566052532229]),
                 zoom: 18
             })
+        });
+
+        map.on('click', function (evt) {
+            var feature = map.forEachFeatureAtPixel(evt.pixel, function (feat, layer) {
+                return feat;
+            }
+            );
+            if(feature != undefined){
+                let rutaMarkers = $("#ruta").val(); 
+                let barID = feature.get('name');
+                //window.location.href = rutaMarkers + barID;
+            }
+            
+
         });
     </script>
 </body>
