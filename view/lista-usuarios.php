@@ -204,7 +204,7 @@
       pag = 0;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-usuarios/0/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-usuarios/0/" + numero,
         dataType: "json",
         success: function(response) {
           users = response;
@@ -224,7 +224,7 @@
       pag = pag + numero;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-usuarios/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-usuarios/" + pag + "/" + numero,
         dataType: "json",
         success: function(response) {
           if (response.length != 0) {
@@ -249,7 +249,7 @@
       }
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-usuarios/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-usuarios/" + pag + "/" + numero,
         //data: {"pais" : datalist.value},
         dataType: "json",
         success: function(response) {

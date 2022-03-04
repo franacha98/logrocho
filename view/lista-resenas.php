@@ -305,7 +305,7 @@
       pag = 0;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-resenas/0/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-resenas/0/" + numero,
         dataType: "json",
         success: function(response) {
           resenas = response;
@@ -326,7 +326,7 @@
       pag = pag + numero;
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-resenas/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-resenas/" + pag + "/" + numero,
         //data: {"pais" : datalist.value},
         dataType: "json",
         success: function(response) {
@@ -353,7 +353,7 @@
       }
       $.ajax({
         type: "GET",
-        url: "http://localhost/logrocho/index.php/listado-resenas/" + pag + "/" + numero,
+        url: "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/listado-resenas/" + pag + "/" + numero,
         //data: {"pais" : datalist.value},
         dataType: "json",
         success: function(response) {

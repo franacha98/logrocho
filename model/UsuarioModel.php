@@ -1,10 +1,10 @@
 <?php
     class Usuario{
 
-        private $correo;
-        private $contrasena;
-        private $admin;
-        private $nombre;
+        public $correo;
+        public $contrasena;
+        public $admin;
+        public $nombre;
         
         function __construct($correo, $contrasena, $admin = false, $nombre)
         {

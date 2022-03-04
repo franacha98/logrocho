@@ -1,12 +1,12 @@
 <?php
     class Resena{
 
-        private $cod_valoracion;
-        private $usuario;
-        private $pincho;
-        private $comentario;
-        private $likes;
-        private $flag;
+        public $cod_valoracion;
+        public $usuario;
+        public $pincho;
+        public $comentario;
+        public $likes;
+        public $flag;
         
         public function __construct($cod_valoracion, $usuario, $pincho, $comentario, $likes)
         {
