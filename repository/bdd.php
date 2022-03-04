@@ -8,7 +8,7 @@ class BBDD
 
     public function __construct()
     {
-        $this->DB_INFO = 'mysql:host='. $_SERVER["HTTP_HOST"] .';dbname=logrocho';
+        $this->DB_INFO = 'mysql:host='. $_SERVER["HTTP_HOST"] .';dbname=logrocho;charset=utf8mb4';
         $this->DB_USER = 'root';
         $this->DB_PASS = '';
         $this->conexion = new PDO($this->DB_INFO, $this->DB_USER, $this->DB_PASS);
