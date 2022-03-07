@@ -121,7 +121,12 @@
 
             echo json_encode($resena);
         }
-
+        /**
+         * Da un me gusta a una resena
+         *
+         * @param [int] $cod_resena
+         * @return void
+         */
         public function meGusta($cod_resena){
             $usuario = $_SESSION["idusuario"];
             $this->db->meGusta($usuario, $cod_resena);

@@ -105,6 +105,7 @@ function eliminarImgBar(elemento) {
       location.reload(true);
     },
   });
+  window.location.reload();
 }
 
 function eliminarImgPincho(elemento) {
@@ -118,6 +119,7 @@ function eliminarImgPincho(elemento) {
       location.reload(true);
     },
   });
+  window.location.reload();
 }
 
 

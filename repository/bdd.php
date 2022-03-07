@@ -9,6 +9,7 @@ class BBDD
     public function __construct()
     {
         $this->DB_INFO = 'mysql:host=' . $_SERVER["HTTP_HOST"] . ';dbname=logrocho;charset=utf8mb4';
+        //$this->DB_INFO = 'mysql:host='. $_SERVER["HTTP_HOST"] .';dbname=franciscoociobin_logrocho;charset=utf8mb4';
         $this->DB_USER = 'root';
         $this->DB_PASS = '';
         $this->conexion = new PDO($this->DB_INFO, $this->DB_USER, $this->DB_PASS);
@@ -61,7 +62,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Comprueba si un usuario tiene permisos de administrador
+     *
+     * @param [string] $usuario
+     * @return void
+     */
     public function esAdmin($usuario)
     {
         try {
@@ -365,7 +371,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene el nombre de un pincho mediante su codigo
+     *
+     * @param [int] $cod_pincho
+     * @return void
+     */
     public function recuperarNombrePincho($cod_pincho)
     {
         try {
@@ -405,7 +416,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene una lista con todas las reseñas de un pincho
+     *
+     * @param [int] $cod_pincho
+     * @return void
+     */
     public function resenasDePincho($cod_pincho)
     {
         try {
@@ -477,7 +493,14 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Guarda un nuevo usuario en la base de datos, por defecto no será administrador, esto solo puede hacerlo un admin
+     *
+     * @param [string] $nombre
+     * @param [string] $usuario
+     * @param [string] $contrasena
+     * @return void
+     */
     public function registrarUsuario($nombre, $usuario, $contrasena)
     {
         try {
@@ -707,7 +730,13 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Añade fotos a un pincho
+     *
+     * @param [int] $cod_pincho
+     * @param [string array] $fotos
+     * @return void
+     */
     public function anadirFotosPincho($cod_pincho, $fotos)
     {
         try {
@@ -733,7 +762,13 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Añade fotos a un bar
+     *
+     * @param [int] $cod_bar
+     * @param [string array] $fotos
+     * @return void
+     */
     public function anadirFotosBar($cod_bar, $fotos)
     {
         try {
@@ -759,7 +794,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene todas las fotos de un bar
+     *
+     * @param [int] $cod_bar
+     * @return void
+     */
     public function recuperarFotosBar($cod_bar)
     {
         try {
@@ -779,7 +819,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene todas las fotos de un pincho
+     *
+     * @param [int] $cod_pincho
+     * @return void
+     */
     public function recuperarFotosPincho($cod_pincho)
     {
         try {
@@ -799,7 +844,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene los datos de un bar mediante su nombre, ya que el nombre es unico
+     *
+     * @param [int] $nombre
+     * @return void
+     */
     public function recuperarBarNombre($nombre)
     {
         try {
@@ -816,7 +866,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene los datos de un pincho mediante su nombre, ya que es unico
+     *
+     * @param [int] $nombre
+     * @return void
+     */
     public function recuperarPinchoNombre($nombre)
     {
         try {
@@ -833,7 +888,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Elimina la foto de un pincho
+     *
+     * @param [int] $id
+     * @return void
+     */
     public function eliminarFotoPincho($id)
     {
         try {
@@ -849,7 +909,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * ELimina la foto de un bar
+     *
+     * @param [int] $id
+     * @return void
+     */
     public function eliminarFotoBar($id)
     {
         try {
@@ -865,7 +930,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Devuelve la puntuacion total de un bar (media de la puntuacion de todos sus pinchos)
+     *
+     * @param [int] $bar
+     * @return void
+     */
     public function puntuacionBar($bar)
     {
         try {
@@ -886,7 +956,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene la puntuacion media de un pincho
+     *
+     * @param [int] $cod_pincho
+     * @return void
+     */
     public function puntuacionPincho($cod_pincho)
     {
         try {
@@ -906,7 +981,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene el pincho mejor valorado (mas nota media) de un bar
+     *
+     * @param [int] $bar
+     * @return void
+     */
     public function especialidadBar($bar)
     {
         try {
@@ -927,7 +1007,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Recupera todos los pinchos de un bar
+     *
+     * @param [int] $bar
+     * @return void
+     */
     public function recuperarPinchosDeBar($bar)
     {
         try {
@@ -944,7 +1029,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Recupera los pinchos que ha valorado un usuario
+     *
+     * @param [int] $usuario
+     * @return void
+     */
     public function recuperarPinchosValoradosDeUsuario($usuario)
     {
         try {
@@ -960,7 +1050,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene todas las reseñas de un usuario
+     *
+     * @param [int] $usuario
+     * @return void
+     */
     public function recuperarResenasDeUsuario($usuario)
     {
         try {
@@ -976,7 +1071,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obitene la primera imagen de un bar en BD
+     *
+     * @param [int] $cod_bar
+     * @return void
+     */
     public function obtenerPrimeraImagenBar($cod_bar)
     {
         try {
@@ -992,7 +1092,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene la primera imagen de un pincho en BD
+     *
+     * @param [int] $cod_pincho
+     * @return void
+     */
     public function obtenerPrimeraImagenPincho($cod_pincho)
     {
         try {
@@ -1008,7 +1113,12 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene los likes que ha dado un usuario
+     *
+     * @param [string] $usuario
+     * @return void
+     */
     public function misLikes($usuario)
     {
         try {
@@ -1024,7 +1134,13 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * USuario da un like a una reseña
+     *
+     * @param [string] $usuario
+     * @param [int] $resena
+     * @return void
+     */
     public function meGusta($usuario, $resena)
     {
         try {
@@ -1066,7 +1182,11 @@ class BBDD
             echo "Error con la DB: " . $e->getMessage();
         }
     }
-
+    /**
+     * Obtiene los pinchos mejor valorados de todos
+     *
+     * @return void
+     */
     public function pinchosMejorValorados()
     {
         $sql = "SELECT nombre,pincho,descripcion, AVG(nota) as nota FROM likes_pincho join pinchos on (likes_pincho.pincho=pinchos.cod_pincho) GROUP BY pincho ORDER BY AVG(nota) DESC";
@@ -1077,7 +1197,11 @@ class BBDD
         }
         return $pinchos;
     }
-
+    /**
+     * Obtiene las 4 reseñas con mas likes
+     *
+     * @return void
+     */
     public function resenasMejorValoradas()
     {
         $sql = "SELECT * FROM valoraciones order by likes DESC LIMIT 0,4";

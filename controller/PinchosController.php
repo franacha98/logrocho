@@ -150,7 +150,12 @@
 
             echo json_encode($pincho);
         }
-
+        /**
+         * elimina la foto de un pincho
+         *
+         * @param [type] $id
+         * @return void
+         */
         public function eliminarFotoPincho($id){
             $ok = $this->db->eliminarFotoPincho($id);
 
@@ -160,7 +165,11 @@
                 echo "KO";
             }
         }  
-        
+        /**
+         * carga los datos del listado de pinchos de la parte publica
+         *
+         * @return void
+         */
         public function listaPinchosPublico(){
             $lista = $this->db->listaPinchos();
            
@@ -184,7 +193,12 @@
 
             require("view/pinchos-publico.php");
         }
-
+        /**
+         * carga los datos de un pincho en especifico para que se pinten en la ficha publica de un pincho
+         *
+         * @param [type] $cod_pincho
+         * @return void
+         */
         public function pinchoPublico($cod_pincho){
             $bares = $this->db->listaBares();
             $pincho = $this->db->recuperarPincho($cod_pincho);

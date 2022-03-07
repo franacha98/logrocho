@@ -145,7 +145,11 @@
             $resenas = $this->db->resenasMejorValoradas();
             require("view/home-publica.php");
         }
-
+        /**
+         * renderiza la pagina de contacto
+         *
+         * @return void
+         */
         public function renderizarContacto(){
 
 

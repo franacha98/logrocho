@@ -145,7 +145,12 @@ class BaresController
 
         require("view/ficha-bar.php");
     }
-
+    /**
+     * carga datos para pintar la vista publica de la ficha de un bar en especifico
+     *
+     * @param [int] $cod_bar
+     * @return void
+     */
     public function barPublico($cod_bar)
     {
         $bar = $this->db->recuperarBar($cod_bar);
@@ -273,7 +278,12 @@ class BaresController
 
         echo json_encode($bar);
     }
-
+    /**
+     * elimina la foto de un bar 
+     *
+     * @param [int] $id
+     * @return void
+     */
     public function eliminarFotoBar($id)
     {
         $ok = $this->db->eliminarFotoBar($id);
