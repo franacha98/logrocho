@@ -120,14 +120,15 @@
                         <h3 class="product-title">Precio: <?php echo $pincho->getPrecio(); ?>€</h3>
                         <h3 class="product-title">Bar: <?php echo $bar->getNombre() . " "; ?></h3>
                         <a class="btn btn-dark" href="<?php echo $rutaBar; ?>">IR AL BAR</a><br>
-                        <form>
+                        <form method="POST" action="<?php echo $rutaAnadirResena; ?>">
                             <div class="form-group">           
                                 <label for="puntos" style="font-size:22px;">Puntúa el pincho</label><br>              
-                                <input class="form-control" id="puntosUsuario" type="number" min=0 max=5 placeholder="0">                                 
+                                <input required class="form-control" id="puntosUsuario" name="puntosUsuario" type="number" min=0 max=5 placeholder="0">                                 
                             </div><br>
                             <div class="form-group">
-                                <label for="resena" style="font-size:22px;">Añade una reseña</label><br><br>
-                                <textarea class="form-control" id="resena" rows="4" placeholder="Escribe aquí tu comentario..."></textarea>
+                                <label for="comentario" style="font-size:22px;">Añade una reseña</label><br><br>
+                                <input required type="text" class="form-control" name="comentario" id="comentario" rows="4" placeholder="Escribe aquí tu comentario...">
+                                <input type="hidden" name="pincho" value="<?php echo $pincho->getCod_pincho(); ?>" >
                             </div><br>
                             <button type="submit" class="btn btn-dark">Envíar reseña</button>
                         </form>
@@ -186,8 +187,10 @@
                     }else if(response == "ME GUSTA"){
                         $(".flaglike").removeClass("fa-heart-o").addClass("fa-heart");
                     }
+                    
                 }
             });
+            window.location.reload();
         }
 
     </script>

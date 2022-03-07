@@ -109,13 +109,13 @@
                         <h3 class="product-title"><?php echo $pinchoEspecialidad->getNombre() . " "; ?><a href="<?php echo $rutaEspecialidad; ?>"><i class="fa fa-external-link" style="color: black"></i></a></h3>
                         <h4>Descripción de la especialidad:</h4>
                         <span><?php echo $pinchoEspecialidad->getDescripcion(); ?></span><br>
-                        <form>
+                        <!--<form>
                             <div class="form-group">
                                 <label for="resena" style="font-size:22px;">Añade una reseña</label><br><br>
                                 <textarea class="form-control" id="resena" rows="4" placeholder="Escribe aquí tu comentario..."></textarea>
                             </div><br>
                             <button type="submit" class="btn btn-dark">Envíar reseña</button>
-                        </form>
+                        </form>-->
 
                     </div>
                 </div><br>

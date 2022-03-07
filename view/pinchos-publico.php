@@ -32,13 +32,12 @@
     <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i></button>
     <h1>Lista de pinchos</h1><br><br>
 
-    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Buscar un pincho por nombre...">
+    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Buscar un pincho por nombre..." onchange="irAPincho()">
     <datalist id="datalistOptions">
       <?php
         for($i = 0; $i < count($lista); $i++){ ?>
-        <option value="<?php echo $lista[$i]->getNombre(); ?>">
+        <option value="<?php echo $lista[$i]->getCod_pincho().". ".$lista[$i]->getNombre(); ?>">
         <?php } ?>  
-      ?>
     </datalist>
     <div class="row">
     <?php 
@@ -68,7 +67,12 @@
   ?>
   <script src="../js/jquery-3.6.0.min.js"></script>
   <script src="../js/script.js"></script>
-
+  <script>
+    function irAPincho(){
+      var cod = $("#exampleDataList").val().substr(0,1);
+      window.location.href = "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/pincho/" + cod;
+    }
+  </script>
 </body>
 
 </html>

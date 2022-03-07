@@ -122,14 +122,29 @@
             require("view/panel-administracion.php");
         }
 
+        /**
+         * renderiza la home publica
+         *
+         * @return void
+         */
         public function homePublica(){
             $rutaListaBares = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-bares";
             $rutaListaPinchos = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-pinchos";
             $rutaListaUsuarios = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-usuarios";
             $rutaListaResenas = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/lista-resenas";
+            $pinchos = $this->db->pinchosMejorValorados();
+            $fotos = array();
+            for ($i=0; $i < count($pinchos); $i++) { 
+                $foto = $this->db->obtenerPrimeraImagenPincho($pinchos[$i]["pincho"]);
+                if ($foto == null) {
+                    $foto = "resources/media/logo-logrocho.png";
+                }
+                array_push($fotos, $foto);
+            }
+
+            $resenas = $this->db->resenasMejorValoradas();
             require("view/home-publica.php");
         }
-
 
         public function renderizarContacto(){
 
@@ -137,6 +152,11 @@
             require("view/contacto.php");
         }
 
+        /**
+         * Renderiza la pagina del mapa
+         *
+         * @return void
+         */
         public function mapa(){
             $rutaMarkers = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/bar/";
             $bares = $this->db->listaBares();
@@ -144,6 +164,7 @@
 
             require("view/mapa.php");
         }
+
     }
 
 ?>

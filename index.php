@@ -119,6 +119,8 @@
         $homecontroller->mapa();
     }else if(isset($array_ruta[0]) && $array_ruta[0] == "me-gusta"){
         $resenascontroller->meGusta($array_ruta[1]);
+    }else if(isset($array_ruta[0]) && $array_ruta[0] == "anadir-resena-ajax"){
+        $resenascontroller->anadirResenaAJAX();
     }else{   
         $homecontroller->renderizarHome();
     }

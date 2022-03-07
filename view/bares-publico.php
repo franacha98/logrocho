@@ -33,13 +33,12 @@
 
     <h1>Lista de bares</h1><br><br>
     
-    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Buscar un bar por nombre...">
+    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Buscar un bar por nombre..." onchange="irABar()">
     <datalist id="datalistOptions">
       <?php
       for ($i = 0; $i < count($lista); $i++) { ?>
-        <option value="<?php echo $lista[$i]->getNombre(); ?>">
+        <option value="<?php echo $lista[$i]->getCod_bar().". ".$lista[$i]->getNombre(); ?>">
         <?php } ?>
-        ?>
     </datalist>
     <div class="row">
       <?php
@@ -97,7 +96,12 @@
   ?>
   <script src="../js/jquery-3.6.0.min.js"></script>
   <script src="../js/script.js"></script>
-
+  <script>
+    function irABar(){
+      var cod = $("#exampleDataList").val().substr(0,1);
+      window.location.href = "http://<?php echo $_SERVER["HTTP_HOST"]; ?>/logrocho/index.php/bar/" + cod;
+    }
+  </script>
 </body>
 
 </html>

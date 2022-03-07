@@ -222,6 +222,9 @@
                     }
                 }
             }
+
+            $rutaAnadirResena = "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-resena-ajax";
+
             require("view/pincho.php");
         }
     }

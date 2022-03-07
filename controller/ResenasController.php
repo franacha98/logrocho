@@ -42,6 +42,20 @@
             header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-resena-vista");
         }
         /**
+         * Añade una nueva reseña a la BD llamando al metodo del gestor de base de datos
+         *
+         * @return void
+         */
+        public function anadirResenaAJAX(){
+            $usuario = $_SESSION["idusuario"];
+            $pincho = $_POST["pincho"];
+            $comentario = $_POST["comentario"];
+            $nota = $_POST["puntosUsuario"];
+            $this->db->anadirResenaYPuntuacion($usuario, $pincho, $comentario, $nota);   
+            
+            header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/pincho/" . $pincho);
+        }
+        /**
          * Elimina una reseña a la BD llamando al metodo del gestor de base de datos
          *
          * @return void
