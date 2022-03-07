@@ -55,7 +55,7 @@
             <span style="font-weight: bold" class="card-text">Especialidad: 
               <?php 
               if($lista[$i]->getEspecialidad() == null){
-                echo "Especialida: No tiene";
+                echo "No tiene";
               }else{
                 echo $lista[$i]->getEspecialidad()->getNombre(); 
               }
@@ -66,15 +66,15 @@
             <div id="puntos">
               <strong>Puntuación:</strong>
               <?php
-              if ($lista[$i]->getPuntuacion() > 4 && $lista[$i]->getPuntuacion() < 5) {
+              if ($lista[$i]->getPuntuacion() >= 4 && $lista[$i]->getPuntuacion() < 5) {
                 echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrella;
-              } else if ($lista[$i]->getPuntuacion() > 3 && $lista[$i]->getPuntuacion() < 4) {
+              } else if ($lista[$i]->getPuntuacion() >= 3 && $lista[$i]->getPuntuacion() < 4) {
                 echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrella . $estrella;
-              } else if ($lista[$i]->getPuntuacion() > 2 && $lista[$i]->getPuntuacion() < 3) {
+              } else if ($lista[$i]->getPuntuacion() >= 2 && $lista[$i]->getPuntuacion() < 3) {
                 echo $estrellaCheck . $estrellaCheck . $estrella . $estrella . $estrella;
-              } else if ($lista[$i]->getPuntuacion() > 1 && $lista[$i]->getPuntuacion() < 2) {
+              } else if ($lista[$i]->getPuntuacion() >= 1 && $lista[$i]->getPuntuacion() < 2) {
                 echo $estrellaCheck . $estrella . $estrella . $estrella . $estrella;
-              } else if ($lista[$i]->getPuntuacion() > 0 && $lista[$i]->getPuntuacion() < 1) {
+              } else if ($lista[$i]->getPuntuacion() >= 0 && $lista[$i]->getPuntuacion() < 1) {
                 echo $estrella . $estrella . $estrella . $estrella . $estrella;
               } else if ($lista[$i]->getPuntuacion() >= 5) {
                 echo $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck . $estrellaCheck;

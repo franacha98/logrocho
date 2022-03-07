@@ -92,7 +92,7 @@ class BaresController
         //echo $countfiles;
         $fotos_bar = array();
         $rutaBase = file_get_contents("config.txt");
-        echo $rutaBase;
+        //echo $rutaBase;
         $rutaFotos = $rutaBase . "\\img_bares\\" . $cod_bar;
         for ($i = 0; $i < $countfiles; $i++) {
             $filename = $_FILES['file']['name'][$i];
@@ -104,7 +104,7 @@ class BaresController
         }
         $this->db->anadirFotosBar($cod_bar, $fotos_bar);
 
-        echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";
+        //echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista";
 
         header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-bar-vista");
     }
@@ -209,7 +209,7 @@ class BaresController
         $countfiles = count($_FILES['file']['name']);
         $fotos_bar = array();
         $rutaBase = file_get_contents("config.txt");
-        echo $rutaBase;
+        //echo $rutaBase;
         $rutaFotos = $rutaBase . "\\img_bares\\" . $cod_bar;
         for ($i = 0; $i < $countfiles; $i++) {
             $filename = $_FILES['file']['name'][$i];

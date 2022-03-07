@@ -49,8 +49,8 @@
             }
             $this->db->anadirFotosPincho($cod_pincho, $fotos_bar);
 
-            echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista";
-            //header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista");
+            //echo "http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista";
+            header("Location: http://" . $_SERVER["HTTP_HOST"] . "/logrocho/index.php/anadir-pincho-vista");
         }
         /**
          * muestra el formulario para añadir un nuevo pincho

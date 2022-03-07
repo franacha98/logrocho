@@ -286,7 +286,7 @@ class BBDD
         try {
             $sql = "DELETE FROM pinchos WHERE cod_pincho=$cod_pincho";
             $result = $this->conexion->query($sql);
-            echo $sql;
+            //echo $sql;
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
         }
@@ -477,7 +477,7 @@ class BBDD
             $this->conexion->beginTransaction();
 
             $sql = "INSERT INTO usuarios (usuario, contrasena, admin, nombre) VALUES ('$usuario', '$contrasena', '$admin', '$nombre')";
-            echo $sql;
+            //echo $sql;
             $resultado = $this->conexion->query($sql);
 
             if (!$resultado) {
@@ -508,7 +508,7 @@ class BBDD
             $this->conexion->beginTransaction();
 
             $sql = "INSERT INTO usuarios (usuario, contrasena, admin, nombre) VALUES ('$usuario', '$contrasena', '0', '$nombre')";
-            echo $sql;
+            //echo $sql;
             $resultado = $this->conexion->query($sql);
 
             if (!$resultado) {
@@ -537,7 +537,7 @@ class BBDD
     {
         try {
             $sql = "UPDATE usuarios SET nombre='$nombre', usuario='$usuario', admin='$admin' WHERE usuario='$usuario'";
-            echo $sql;
+            //echo $sql;
             $resultado = $this->conexion->query($sql);
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
@@ -554,7 +554,7 @@ class BBDD
         try {
             $sql = "DELETE FROM usuarios WHERE usuario='$usuario'";
             $result = $this->conexion->query($sql);
-            echo $sql;
+            //echo $sql;
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
         }
@@ -573,7 +573,7 @@ class BBDD
     {
         try {
             $sql = "UPDATE pinchos SET nombre='$nombre', descripcion='$descripcion', precio='$precio', bar='$bar' WHERE cod_pincho=$cod_pincho";
-            echo $sql;
+            //echo $sql;
             $resultado = $this->conexion->query($sql);
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
@@ -593,7 +593,7 @@ class BBDD
     {
         try {
             $sql = "UPDATE valoraciones SET usuario='$usuario', pincho='$pincho', comentario='$comentario', likes='$likes' WHERE cod_valoracion=$cod_valoracion";
-            echo $sql;
+            //echo $sql;
             $resultado = $this->conexion->query($sql);
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
@@ -614,7 +614,7 @@ class BBDD
             $this->conexion->beginTransaction();
 
             $sql = "INSERT INTO bares (nombre, latitud, longitud) VALUES ('$nombre', '$latitud', '$longitud')";
-            echo $sql;
+            //echo $sql;
             $resultado = $this->conexion->query($sql);
 
             if (!$resultado) {
@@ -706,7 +706,7 @@ class BBDD
         try {
             $sql = "DELETE FROM bares WHERE cod_bar=$cod_bar";
             $result = $this->conexion->query($sql);
-            echo $sql;
+            //echo $sql;
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
         }
@@ -724,7 +724,7 @@ class BBDD
     {
         try {
             $sql = "UPDATE bares SET nombre='$nombre', latitud='$latitud', longitud='$longitud' WHERE cod_bar=$cod_bar";
-            echo $sql;
+            //echo $sql;
             $resultado = $this->conexion->query($sql);
         } catch (PDOException $e) {
             echo "Error con la DB: " . $e->getMessage();
